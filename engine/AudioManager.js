@@ -17,6 +17,7 @@ const DEFAULT_MUSIC_VOL = 80;
 const DEFAULT_SFX_VOL = 80;
 
 const FADE_MS = 2500;
+const END_FADE_MS = 4000;
 const SILENCE_BETWEEN_MS = 800;
 
 import {
@@ -37,6 +38,7 @@ const AudioManager = (() => {
 
   let bgAudio = null;
   let bgNextTimeout = null;
+  let bgEndFadeTimeout = null;
 
   let isPlaying = false;
   let hasUserInteracted = false;
@@ -121,6 +123,13 @@ const AudioManager = (() => {
       bgNextTimeout = null;
     }
   };
+
+  const clearEndFadeTimeout = () => {
+  if (bgEndFadeTimeout !== null) {
+    clearTimeout(bgEndFadeTimeout);
+    bgEndFadeTimeout = null;
+  }
+};
 
   const cancelFade = (audio) => {
     if (!audio) {
@@ -283,6 +292,7 @@ const AudioManager = (() => {
     }
 
     clearNextTrackTimeout();
+    clearEndFadeTimeout();
 
     const normalizedIndex =
       ((Number(index) || 0) % tracks.length + tracks.length) %
@@ -330,6 +340,41 @@ const AudioManager = (() => {
 
     currentIndex = normalizedIndex;
     bgAudio = newAudio;
+
+    newAudio.onloadedmetadata = () => {
+  clearEndFadeTimeout();
+
+  if (
+    !Number.isFinite(newAudio.duration) ||
+    newAudio.duration <= 0
+  ) {
+    return;
+  }
+
+  const fadeDelay = Math.max(
+    0,
+    newAudio.duration * 1000 - END_FADE_MS
+  );
+
+  bgEndFadeTimeout = setTimeout(() => {
+    bgEndFadeTimeout = null;
+
+    if (
+      !isPlaying ||
+      runId !== playbackRunId ||
+      bgAudio !== newAudio
+    ) {
+      return;
+    }
+
+    fadeAudio(
+      newAudio,
+      newAudio.volume,
+      0,
+      END_FADE_MS
+    );
+  }, fadeDelay);
+};
 
     newAudio.onended = () => {
       scheduleNextTrack(newAudio, runId);
@@ -403,6 +448,7 @@ const AudioManager = (() => {
     playbackRunId += 1;
 
     clearNextTrackTimeout();
+    clearEndFadeTimeout();
 
     const audioToStop = bgAudio;
     bgAudio = null;
