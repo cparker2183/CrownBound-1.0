@@ -21,6 +21,16 @@ const CROWN_TO_USD = 0.10; // conversion rate for simulation: 1 Crown = $0.10
 const MAX_CROWNS_FROM_ADS_PER_DAY = 5; // crowns via ads per day
 const MAX_AD_REWARDS_PER_DAY = 20; // limits non-crown ad rewards
 const MAX_INVENTORY = 100;
+const createStartingPlayer = (name = "Hero") => ({
+  name: String(name).trim() || "Hero",
+  level: 1,
+  hp: 100,
+  maxHp: 100,
+  xp: 0,
+  xpToNextLevel: 100,
+  gold: 10,
+  crowns: 0,
+});
 
 // -------------------- Utilities --------------------
 const now = () => Date.now();
@@ -54,17 +64,8 @@ const saveSnapshotToStorage = (snapshot) => {
 // Normalization for player object to avoid NaN/invalid numbers
 const normalizePlayer = (p) => {
   if (!p || typeof p !== "object") {
-    return {
-      name: "Hero",
-      level: 1,
-      hp: 100,
-      maxHp: 100,
-      xp: 0,
-      xpToNextLevel: 100,
-      gold: 10,
-      crowns: 0,
-    };
-  }
+  return createStartingPlayer();
+}
   return {
     name: p.name || "Hero",
     level: Number.isFinite(p.level) ? Math.max(1, Math.floor(p.level)) : 1,
@@ -96,6 +97,11 @@ if (!audioInitialized.current) {
 
   // load snapshot (if any)
   const saved = loadSavedSnapshot();
+  const [hasCharacter, setHasCharacter] = useState(
+  Boolean(saved?.player?.name)
+);
+
+const isResettingRef = useRef(false);
 
   // Core states
   const [player, setPlayerRaw] = useState(normalizePlayer(saved?.player));
@@ -140,8 +146,12 @@ if (!audioInitialized.current) {
   // ---------- auto-save snapshot periodically ----------
   useEffect(() => {
     const handler = setInterval(() => {
-      try {
-        const snapshot = {
+  if (!hasCharacter || isResettingRef.current) {
+    return;
+  }
+
+  try {
+    const snapshot = {
           player,
           inventory,
           equipment,
@@ -155,6 +165,7 @@ if (!audioInitialized.current) {
           musicVolume: AudioManager.getMusicVolume ? AudioManager.getMusicVolume() : musicVolume,
           sfxVolume: AudioManager.getSfxVolume ? AudioManager.getSfxVolume() : sfxVolume,
           musicTrackIndex: 0,
+          hasCharacter,
         };
         saveSnapshotToStorage(snapshot);
       } catch (e) {
@@ -168,7 +179,11 @@ if (!audioInitialized.current) {
   // also save on unload
   useEffect(() => {
     const onBeforeUnload = () => {
-      try {
+  if (!hasCharacter || isResettingRef.current) {
+    return;
+  }
+
+  try {
         const snapshot = {
           player,
           inventory,
@@ -182,6 +197,7 @@ if (!audioInitialized.current) {
           musicVolume: AudioManager.getMusicVolume ? AudioManager.getMusicVolume() : musicVolume,
           sfxVolume: AudioManager.getSfxVolume ? AudioManager.getSfxVolume() : sfxVolume,
           musicTrackIndex: 0,
+          hasCharacter,
         };
         saveSnapshotToStorage(snapshot);
       } catch (e) {}
@@ -759,6 +775,96 @@ if (wasKnockedOut) {
     });
   };
 
+// ---------- Character lifecycle ----------
+
+const createCharacter = (characterName) => {
+  const cleanName = String(characterName || "").trim();
+
+  if (!cleanName) {
+    return {
+      success: false,
+      error: "Please enter a character name.",
+    };
+  }
+
+  const newPlayer = createStartingPlayer(cleanName);
+  const emptyEquipment = {
+    weapon: null,
+    armor: null,
+    head: null,
+    body: null,
+    boots: null,
+  };
+
+  isResettingRef.current = false;
+
+  setPlayerRaw(newPlayer);
+  setInventory([]);
+  setEquipment(emptyEquipment);
+  setActivityLog([]);
+  setFloatingText([]);
+  setPotionEffect(null);
+  setCrownsConvertedToday(0);
+  setCrownsFromAdsToday(0);
+  setAdsWatchedToday(0);
+  setDailyResetTs(startOfDayTs());
+  setHasCharacter(true);
+
+  saveSnapshotToStorage({
+    player: newPlayer,
+    inventory: [],
+    equipment: emptyEquipment,
+    activityLog: [],
+    potionEffect: null,
+    crownsConvertedToday: 0,
+    crownsFromAdsToday: 0,
+    dailyResetTs: startOfDayTs(),
+    adsWatchedToday: 0,
+    musicVolume: AudioManager.getMusicVolume
+      ? AudioManager.getMusicVolume()
+      : musicVolume,
+    sfxVolume: AudioManager.getSfxVolume
+      ? AudioManager.getSfxVolume()
+      : sfxVolume,
+    musicTrackIndex: 0,
+  });
+
+  return {
+    success: true,
+    player: newPlayer,
+  };
+};
+
+const resetCharacter = () => {
+  isResettingRef.current = true;
+
+  try {
+    localStorage.removeItem(STORAGE_KEY);
+  } catch (error) {
+    console.warn("Failed to remove CrownBound save:", error);
+  }
+
+  setPlayerRaw(createStartingPlayer());
+  setInventory([]);
+  setEquipment({
+    weapon: null,
+    armor: null,
+    head: null,
+    body: null,
+    boots: null,
+  });
+  setActivityLog([]);
+  setFloatingText([]);
+  setPotionEffect(null);
+  setCrownsConvertedToday(0);
+  setCrownsFromAdsToday(0);
+  setAdsWatchedToday(0);
+  setDailyResetTs(startOfDayTs());
+  setHasCharacter(false);
+
+  return true;
+};
+
   // ---------- Quests & events ----------
   const defeatBoss = (bossName) => {
     const crownsAwarded = 2 + Math.floor(Math.random() * 2);
@@ -776,7 +882,12 @@ if (wasKnockedOut) {
 
   // ---------- Exposed context ----------
   const contextValue = {
-    // state
+  // character lifecycle
+  hasCharacter,
+  createCharacter,
+  resetCharacter,
+
+  // state
     player,
     setPlayer,
     inventory,

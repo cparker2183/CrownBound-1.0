@@ -1,7 +1,16 @@
-import React, { useState, useEffect } from "react";
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native-web";
+import React, { useState } from "react";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+} from "react-native-web";
+
+import { useGame } from "./engine/GameContext.js";
 
 // Components
+import IntroScreen from "./components/IntroScreen.js";
+import HowToPlay from "./components/HowToPlay.js";
 import Stats from "./components/Stats.js";
 import Inventory from "./components/Inventory.js";
 import Quests from "./components/Quests.js";
@@ -9,10 +18,23 @@ import Achievements from "./components/Achievements.js";
 import Story from "./components/Story.js";
 import Referral from "./components/Referral.js";
 import Settings from "./components/Settings.js";
-import Wallet from "./components/Wallet.js"; // ✅ fixed path
+import Wallet from "./components/Wallet.js";
+
 
 export default function App() {
+  const {
+    player,
+    hasCharacter,
+    createCharacter,
+  } = useGame();
+
   const [tab, setTab] = useState("Stats");
+
+  // The Intro appears once per application launch.
+  const [hasStartedThisLaunch, setHasStartedThisLaunch] =
+    useState(false);
+  const [showHowToPlay, setShowHowToPlay] = useState(false);
+  const [tutorialMode, setTutorialMode] = useState(false);  
 
   const tabs = [
     "Stats",
@@ -29,37 +51,104 @@ export default function App() {
     switch (tab) {
       case "Stats":
         return <Stats />;
+
       case "Inventory":
         return <Inventory />;
+
       case "Quests":
         return <Quests />;
+
       case "Achievements":
         return <Achievements />;
+
       case "Story":
         return <Story />;
+
       case "Referral":
         return <Referral />;
+
       case "Settings":
-        return <Settings />;
-      case "Wallet": // ✅ fixed
+  return (
+    <Settings
+      onReturnToIntro={() => {
+        setTab("Stats");
+        setHasStartedThisLaunch(false);
+      }}
+      onOpenHowToPlay={() => {
+        setTutorialMode(false);
+        setShowHowToPlay(true);
+      }}
+    />
+  );
+
+      case "Wallet":
         return <Wallet />;
+
       default:
-        return <Text style={{ color: "#fff" }}>Unknown Tab</Text>;
+        return (
+          <Text style={{ color: "#fff" }}>
+            Unknown Tab
+          </Text>
+        );
     }
   };
+
+if (showHowToPlay) {
+  return (
+    <HowToPlay
+      buttonText={tutorialMode ? "Begin Adventure" : "Return to Game"}
+      onClose={() => {
+        setShowHowToPlay(false);
+
+        if (tutorialMode) {
+          setTutorialMode(false);
+          setTab("Stats");
+          setHasStartedThisLaunch(true);
+        }
+      }}
+    />
+  );
+}
+  
+  if (!hasStartedThisLaunch) {
+    return (
+      <IntroScreen
+  hasCharacter={hasCharacter}
+  playerName={player?.name}
+  playerLevel={player?.level}
+  onCreateCharacter={(characterName) => {
+    const result = createCharacter(characterName);
+
+    if (result?.success) {
+      setTutorialMode(true);
+      setShowHowToPlay(true);
+    }
+
+    return result;
+  }}
+  onStartPlaying={() => {
+    setTab("Stats");
+    setHasStartedThisLaunch(true);
+  }}
+/>
+    );
+  }
 
   return (
     <View style={styles.container}>
       <Text style={styles.header}>👑 CrownBound 👑</Text>
 
       <View style={styles.tabRow}>
-        {tabs.map((t) => (
+        {tabs.map((tabName) => (
           <TouchableOpacity
-            key={t}
-            style={[styles.tabButton, tab === t && styles.tabActive]}
-            onPress={() => setTab(t)}
+            key={tabName}
+            style={[
+              styles.tabButton,
+              tab === tabName && styles.tabActive,
+            ]}
+            onPress={() => setTab(tabName)}
           >
-            <Text style={styles.tabText}>{t}</Text>
+            <Text style={styles.tabText}>{tabName}</Text>
           </TouchableOpacity>
         ))}
       </View>
@@ -75,6 +164,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#111",
     paddingTop: 15,
   },
+
   header: {
     color: "#fff",
     fontSize: 18,
@@ -82,6 +172,7 @@ const styles = StyleSheet.create({
     marginBottom: 8,
     fontWeight: "bold",
   },
+
   tabRow: {
     flexDirection: "row",
     flexWrap: "wrap",
@@ -89,20 +180,24 @@ const styles = StyleSheet.create({
     backgroundColor: "#333",
     paddingVertical: 4,
   },
+
   tabButton: {
     paddingHorizontal: 10,
     paddingVertical: 4,
     margin: 2,
     borderRadius: 6,
   },
+
   tabActive: {
     backgroundColor: "#555",
   },
+
   tabText: {
     color: "#fff",
     fontWeight: "bold",
     fontSize: 12,
   },
+
   content: {
     flex: 1,
     padding: 8,

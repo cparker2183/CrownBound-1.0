@@ -3,7 +3,10 @@ import React from "react";
 import { View, Text } from "react-native-web";
 import { useGame } from "../engine/GameContext";
 
-export default function Settings() {
+export default function Settings({
+  onReturnToIntro = () => {},
+  onOpenHowToPlay = () => {},
+}) {
   const {
     musicVolume,
     setMusicVolume,
@@ -12,6 +15,7 @@ export default function Settings() {
     playSound,
     playEffect,
     playNextTestEffect,
+    resetCharacter,
   } = useGame();
 
   return (
@@ -65,6 +69,109 @@ export default function Settings() {
       <Text style={{ color: "#9ca3af", marginTop: 12, fontSize: 12 }}>
         Background music will loop through your playlist with short silences between tracks.
       </Text>
+
+<div
+  style={{
+    marginTop: 24,
+    paddingTop: 20,
+    borderTop: "1px solid #444",
+  }}
+>
+  <Text
+    style={{
+      color: "#f5c451",
+      fontWeight: "bold",
+      fontSize: 17,
+    }}
+  >
+    Game Guide
+  </Text>
+
+  <Text
+    style={{
+      color: "#bbb",
+      marginTop: 8,
+      marginBottom: 12,
+      lineHeight: 20,
+    }}
+  >
+    Review the basics of combat, equipment, potions, saving, and
+    character progress.
+  </Text>
+
+  <button
+    onClick={onOpenHowToPlay}
+    style={{
+      width: "100%",
+      padding: 10,
+      borderRadius: 6,
+      background: "#5f4715",
+      color: "#fff",
+      border: "1px solid #8a6417",
+      fontWeight: "bold",
+      cursor: "pointer",
+    }}
+  >
+    How To Play
+  </button>
+</div>
+
+<div
+  style={{
+    marginTop: 28,
+    paddingTop: 20,
+    borderTop: "1px solid #444",
+  }}
+>
+  <Text
+    style={{
+      color: "#ff8c8c",
+      fontWeight: "bold",
+      fontSize: 17,
+    }}
+  >
+    Reset Character
+  </Text>
+
+  <Text
+    style={{
+      color: "#bbb",
+      marginTop: 8,
+      marginBottom: 12,
+      lineHeight: 20,
+    }}
+  >
+    Permanently erase this character and begin again.
+  </Text>
+
+  <button
+    onClick={() => {
+      const confirmed = window.confirm(
+        "Reset your character?\n\n" +
+        "This permanently deletes your level, equipment, inventory, gold, crowns, and activity history."
+      );
+
+      if (!confirmed) {
+        return;
+      }
+
+      resetCharacter();
+      onReturnToIntro();
+    }}
+    style={{
+      width: "100%",
+      padding: 10,
+      borderRadius: 6,
+      background: "#7f1d1d",
+      color: "#fff",
+      border: "1px solid #b91c1c",
+      fontWeight: "bold",
+      cursor: "pointer",
+    }}
+  >
+    Reset Character
+  </button>
+</div>
 
       {/* Banner Ad Placeholder */}
       <View
