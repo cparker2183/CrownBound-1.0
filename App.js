@@ -40,7 +40,6 @@ export default function App() {
   const tabs = [
     "Stats",
     "Inventory",
-    "HowToPlay",
     "Settings",
     "Wallet",
   ];
