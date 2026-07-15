@@ -105,17 +105,26 @@ export default function Stats() {
   const recentActivity = (activityLog || []).slice(0,10);
 
   return (
-    <View
+  <View
+    style={{
+      flex: 1,
+      padding: 8,
+      backgroundColor: "#0f1722",
+      position: "relative",
+    }}
+  >
+    <Text
       style={{
-        flex: 1,
-        padding: 8,
-        backgroundColor: "#0f1722",
-        position: "relative",
+        color: "#fff",
+        fontSize: 18,
+        fontWeight: "700",
+        marginBottom: 8,
       }}
     >
-      <Text style={styles.sectionTitle}>
-  {player?.name || "Player Stats"}
-</Text>
+      {p.name}
+    </Text>
+
+    {/* Floating Text */}
 
       {/* Floating Text */}
       <View
