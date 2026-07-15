@@ -20,7 +20,7 @@ import Referral from "./components/Referral.js";
 import Settings from "./components/Settings.js";
 import Wallet from "./components/Wallet.js";
 
-const APP_VERSION = "v0.9.0";
+const APP_VERSION = "v0.9.2";
 
 export default function App() {
   const {

@@ -4,7 +4,7 @@ import { View, Text } from "react-native-web";
 import { useGame } from "../engine/GameContext";
 
 export default function Settings({
-  appVersion = "v0.9.0",
+  appVersion = "v0.9.2",
   onReturnToIntro = () => {},
   onOpenHowToPlay = () => {},
 }) {
