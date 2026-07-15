@@ -113,16 +113,9 @@ export default function Stats() {
         position: "relative",
       }}
     >
-      <Text
-        style={{
-          fontSize: 12,
-          color: "#fff",
-          fontWeight: "700",
-          marginBottom: 3,
-        }}
-      >
-        Player Stats
-      </Text>
+      <Text style={styles.sectionTitle}>
+  {player?.name || "Player Stats"}
+</Text>
 
       {/* Floating Text */}
       <View
