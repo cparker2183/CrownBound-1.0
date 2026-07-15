@@ -20,6 +20,7 @@ import Referral from "./components/Referral.js";
 import Settings from "./components/Settings.js";
 import Wallet from "./components/Wallet.js";
 
+const APP_VERSION = "v0.9.0";
 
 export default function App() {
   const {
@@ -39,10 +40,6 @@ export default function App() {
   const tabs = [
     "Stats",
     "Inventory",
-    "Quests",
-    "Achievements",
-    "Story",
-    "Referral",
     "Settings",
     "Wallet",
   ];
@@ -70,6 +67,7 @@ export default function App() {
       case "Settings":
   return (
     <Settings
+      appVersion={APP_VERSION}
       onReturnToIntro={() => {
         setTab("Stats");
         setHasStartedThisLaunch(false);
@@ -116,6 +114,7 @@ if (showHowToPlay) {
   hasCharacter={hasCharacter}
   playerName={player?.name}
   playerLevel={player?.level}
+  appVersion={APP_VERSION}
   onCreateCharacter={(characterName) => {
     const result = createCharacter(characterName);
 

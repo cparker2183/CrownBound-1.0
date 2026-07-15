@@ -4,6 +4,7 @@ import { View, Text } from "react-native-web";
 import { useGame } from "../engine/GameContext";
 
 export default function Settings({
+  appVersion = "v0.9.0",
   onReturnToIntro = () => {},
   onOpenHowToPlay = () => {},
 }) {
@@ -23,6 +24,16 @@ export default function Settings({
       <Text style={{ color: "#fff", fontSize: 18, fontWeight: "700", marginBottom: 8 }}>
         ⚙️ Settings
       </Text>
+
+      <Text
+  style={{
+    color: "#64748b",
+    fontSize: 12,
+    marginBottom: 8,
+  }}
+>
+  CrownBound {appVersion}
+</Text>
 
       {/* Music Volume */}
       <Text style={{ color: "#9ca3af", marginTop: 8 }}>

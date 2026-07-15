@@ -11,6 +11,7 @@ export default function IntroScreen({
   hasCharacter,
   playerName,
   playerLevel,
+  appVersion,
   onCreateCharacter,
   onStartPlaying,
 }) {
@@ -107,8 +108,12 @@ export default function IntroScreen({
         )}
 
         <Text style={styles.footer}>
-          Your progress is saved automatically on this device.
-        </Text>
+  Your progress is saved automatically on this device.
+</Text>
+
+<Text style={styles.version}>
+  {appVersion}
+</Text>
       </View>
     </View>
   );
@@ -239,4 +244,10 @@ prompt: {
     textAlign: "center",
     marginTop: 24,
   },
+  version: {
+  color: "#666",
+  fontSize: 11,
+  textAlign: "center",
+  marginTop: 6,
+},
 });
