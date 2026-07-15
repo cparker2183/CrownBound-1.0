@@ -1,0 +1,76 @@
+run = "npm run start"
+language = "nodejs"
+onBoot = "echo 'Starting Crownbound...'"
+modules = ["nodejs-20"]
+
+[[ports]]
+localPort = 1234
+externalPort = 80
+
+[[ports]]
+localPort = 2000
+externalPort = 3003
+
+[[ports]]
+localPort = 3000
+externalPort = 3002
+
+[[ports]]
+localPort = 3259
+externalPort = 8008
+
+[[ports]]
+localPort = 3262
+externalPort = 8080
+
+[[ports]]
+localPort = 3301
+externalPort = 9000
+
+[[ports]]
+localPort = 3790
+externalPort = 6000
+
+[[ports]]
+localPort = 3972
+externalPort = 6800
+
+[[ports]]
+localPort = 4000
+externalPort = 3001
+
+[[ports]]
+localPort = 5000
+externalPort = 80
+
+[agent]
+expertMode = true
+
+[deployment]
+deploymentTarget = "static"
+build = ["npm", "run", "build:web"]
+publicDir = "dist"
+
+[workflows]
+runButton = "Project"
+
+[[workflows.workflow]]
+name = "Project"
+mode = "parallel"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "CrownBound Dev Server"
+
+[[workflows.workflow]]
+name = "CrownBound Dev Server"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "PORT=5000 npm start"
+waitForPort = 5000
+
+[workflows.workflow.metadata]
+outputType = "webview"

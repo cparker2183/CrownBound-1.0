@@ -1,0 +1,45 @@
+{
+  "name": "crownbound",
+  "version": "1.0.0",
+  "description": "CrownBound RPG – web and mobile hybrid game",
+  "scripts": {
+  "start": "npm run start:web",
+  "start:web": "node auto-port.js",
+  "build": "npm run build:web",
+  "build:web": "parcel build index.html && node scripts/copy-static.mjs",
+  "deploy": "npm run build:web && firebase deploy --only hosting",
+  "start:mobile": "npx expo start",
+  "android": "npx expo run:android",
+  "ios": "npx expo run:ios"
+},
+  "alias": {
+    "react/jsx-runtime": "./node_modules/react/jsx-runtime.js",
+    "react/jsx-dev-runtime": "./node_modules/react/jsx-dev-runtime.js",
+    "react-native": "react-native-web"
+  },
+  "dependencies": {
+    "@parcel/bundler-default": "^2.16.0",
+    "@parcel/plugin": "^2.16.0",
+    "@parcel/transformer-babel": "^2.16.0",
+    "@parcel/utils": "^2.16.0",
+    "@react-native-async-storage/async-storage": "1.24.0",
+    "expo": "^51.0.0",
+    "expo-constants": "15.4.5",
+    "firebase": "^12.3.0",
+    "framer-motion": "^10.16.4",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-native": "0.73.6",
+    "react-native-web": "^0.19.10"
+  },
+  "devDependencies": {
+    "@parcel/config-default": "^2.16.0",
+    "@parcel/transformer-raw": "^2.16.0",
+    "@parcel/transformer-react-refresh-wrap": "^2.9.3",
+    "parcel": "^2.16.0"
+  },
+  "browserslist": [
+    "defaults"
+  ],
+  "packageManager": "npm@10.8.2"
+}
