@@ -57,6 +57,21 @@ const AudioManager = (() => {
       setTimeout(resolve, milliseconds);
     });
 
+    const shuffleTracks = (trackList) => {
+  const shuffled = trackList.slice();
+
+  for (let index = shuffled.length - 1; index > 0; index -= 1) {
+    const randomIndex = Math.floor(Math.random() * (index + 1));
+
+    [shuffled[index], shuffled[randomIndex]] = [
+      shuffled[randomIndex],
+      shuffled[index],
+    ];
+  }
+
+  return shuffled;
+};
+
   const readInt = (key, defaultValue) => {
     try {
       const rawValue = localStorage.getItem(key);
@@ -442,10 +457,13 @@ window.removeEventListener(
       DEFAULT_SFX_VOL
     );
 
-    tracks =
-      Array.isArray(options.tracks) && options.tracks.length
-        ? options.tracks.filter(Boolean)
-        : DEFAULT_TRACKS.slice();
+    const availableTracks =
+  Array.isArray(options.tracks) && options.tracks.length
+    ? options.tracks.filter(Boolean)
+    : DEFAULT_TRACKS.slice();
+
+tracks = shuffleTracks(availableTracks);
+currentIndex = 0;
 
     if (!isInitialized) {
       window.addEventListener(
