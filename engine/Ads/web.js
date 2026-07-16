@@ -11,7 +11,7 @@ function loadAdsense() {
 
   if (
     document.querySelector(
-        'script[src*="pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"]'
+      'script[src*="pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"]'
     )
   ) {
     scriptLoaded = true;
@@ -54,15 +54,16 @@ export function BannerAd() {
 
   return (
     <div
-  style={{
-    width: "100%",
-    minHeight: 50,
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: 4,
-  }}
->
+      style={{
+        width: "100%",
+        maxWidth: "728px",
+        minHeight: "50px",
+        margin: "4px auto 0",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
       <ins
         className="adsbygoogle"
         style={{
@@ -72,8 +73,8 @@ export function BannerAd() {
         }}
         data-ad-client={CLIENT}
         data-ad-slot={SLOT}
-        data-ad-format="auto"
-        data-full-width-responsive="true"
+        data-ad-format="horizontal"
+        data-full-width-responsive="false"
       />
     </div>
   );
