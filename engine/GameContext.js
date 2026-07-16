@@ -19,7 +19,7 @@ const DEFAULT_SAVE_INTERVAL_MS = 5000;
 const DAILY_USD_LIMIT = 2.0; // daily payout cap (simulation)
 const CROWN_TO_USD = 0.10; // conversion rate for simulation: 1 Crown = $0.10
 const MAX_CROWNS_FROM_ADS_PER_DAY = 5; // crowns via ads per day
-const MAX_AD_REWARDS_PER_DAY = 20; // limits non-crown ad rewards
+const MAX_AD_REWARDS_PER_DAY = 5; // limits non-crown ad rewards
 const MAX_INVENTORY = 100;
 const createStartingPlayer = (name = "Hero") => ({
   name: String(name).trim() || "Hero",
@@ -940,9 +940,10 @@ const resetCharacter = () => {
 
     // constants exposed for UI
     DAILY_USD_LIMIT,
-    CROWN_TO_USD,
-    MAX_CROWNS_FROM_ADS_PER_DAY,
-    MAX_INVENTORY,
+CROWN_TO_USD,
+MAX_CROWNS_FROM_ADS_PER_DAY,
+MAX_AD_REWARDS_PER_DAY,
+MAX_INVENTORY,
   };
 
   return <GameContext.Provider value={contextValue}>{children}</GameContext.Provider>;

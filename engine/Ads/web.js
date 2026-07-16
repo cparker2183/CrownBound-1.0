@@ -54,15 +54,15 @@ export function BannerAd() {
 
   return (
     <div
-      style={{
-        width: "100%",
-        minHeight: 60,
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        marginTop: 8,
-      }}
-    >
+  style={{
+    width: "100%",
+    minHeight: 50,
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 4,
+  }}
+>
       <ins
         className="adsbygoogle"
         style={{

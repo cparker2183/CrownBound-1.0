@@ -33,18 +33,6 @@ const sections = [
       "Rest when your health is low. Recovering before another fight can prevent an early defeat.",
   },
   {
-    icon: "📜",
-    title: "Quests and Progress",
-    description:
-      "Complete quests, gain levels, unlock achievements, and continue building your adventurer.",
-  },
-  {
-    icon: "👑",
-    title: "Crowns and Prestige",
-    description:
-      "As your adventure grows, Crowns and prestige systems provide additional long-term progress.",
-  },
-  {
     icon: "💾",
     title: "Saving",
     description:
@@ -62,13 +50,14 @@ export default function HowToPlay({
         <ScrollView
           style={styles.scrollArea}
           contentContainerStyle={styles.scrollContent}
+          showsVerticalScrollIndicator={false}
         >
           <Text style={styles.crown}>👑</Text>
           <Text style={styles.title}>How To Play</Text>
 
           <Text style={styles.introduction}>
             Welcome to CrownBound! Build your character, grow stronger, and
-            prove yourself worthy of the crown.
+            prove yourself worthy of crowns.
           </Text>
 
           {sections.map((section) => (
@@ -77,6 +66,7 @@ export default function HowToPlay({
 
               <View style={styles.sectionText}>
                 <Text style={styles.sectionTitle}>{section.title}</Text>
+
                 <Text style={styles.sectionDescription}>
                   {section.description}
                 </Text>
@@ -85,7 +75,7 @@ export default function HowToPlay({
           ))}
 
           <Text style={styles.closing}>
-            Good luck, adventurer. Your journey begins now.
+            Do well, adventurer. Your journey begins now.
           </Text>
         </ScrollView>
 
@@ -101,7 +91,7 @@ const styles = StyleSheet.create({
   screen: {
     flex: 1,
     minHeight: "100vh",
-    backgroundColor: "#111",
+    backgroundColor: "#0f1722",
     justifyContent: "center",
     alignItems: "center",
     padding: 16,
@@ -110,10 +100,10 @@ const styles = StyleSheet.create({
   card: {
     width: "100%",
     maxWidth: 620,
-    maxHeight: "92vh",
-    backgroundColor: "#1b1b1b",
-    borderWidth: 1,
-    borderColor: "#4b3b16",
+    maxHeight: "96vh",
+    backgroundColor: "#1e293b",
+    borderWidth: 2,
+    borderColor: "#475569",
     borderRadius: 14,
     padding: 22,
     boxShadow: "0 8px 30px rgba(0, 0, 0, 0.45)",
@@ -141,7 +131,7 @@ const styles = StyleSheet.create({
   },
 
   introduction: {
-    color: "#ddd",
+    color: "#9ca3af",
     fontSize: 16,
     lineHeight: 23,
     textAlign: "center",
@@ -150,9 +140,9 @@ const styles = StyleSheet.create({
 
   section: {
     flexDirection: "row",
-    backgroundColor: "#121212",
-    borderWidth: 1,
-    borderColor: "#333",
+    backgroundColor: "#111827",
+    borderWidth: 2,
+    borderColor: "#475569",
     borderRadius: 9,
     padding: 13,
     marginBottom: 10,
@@ -177,13 +167,13 @@ const styles = StyleSheet.create({
   },
 
   sectionDescription: {
-    color: "#ccc",
+    color: "#9ca3af",
     fontSize: 14,
     lineHeight: 20,
   },
 
   closing: {
-    color: "#fff",
+    color: "#ffffff",
     fontSize: 15,
     fontWeight: "bold",
     textAlign: "center",
@@ -191,7 +181,9 @@ const styles = StyleSheet.create({
   },
 
   button: {
-    backgroundColor: "#8a6417",
+    backgroundColor: "#2563eb",
+    borderWidth: 2,
+    borderColor: "#475569",
     borderRadius: 8,
     paddingVertical: 13,
     paddingHorizontal: 18,
@@ -200,7 +192,7 @@ const styles = StyleSheet.create({
   },
 
   buttonText: {
-    color: "#fff",
+    color: "#ffffff",
     fontSize: 17,
     fontWeight: "bold",
   },

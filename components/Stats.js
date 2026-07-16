@@ -1,8 +1,13 @@
-import React, { useRef, useEffect } from "react";
-import { View, Text, Button, ScrollView, Animated } from "react-native-web";
+import React, { useEffect, useRef } from "react";
+import {
+  View,
+  Text,
+  Button,
+  ScrollView,
+  Animated,
+} from "react-native-web";
 import { useGame } from "../engine/GameContext";
 import { BannerAd } from "../engine/Ads";
-
 
 const COLOR_BY_TYPE = {
   damage: "#ef4444",
@@ -101,30 +106,28 @@ export default function Stats() {
   const healthPotions = countPotionsByName("Health Potion");
   const goldenPotions = countPotionsByName("Golden Potion");
 
-  // Show only the most recent 10 entries
-  const recentActivity = (activityLog || []).slice(0,10);
+  const recentActivity = (activityLog || []).slice(0, 25);
 
   return (
-  <View
-    style={{
-      flex: 1,
-      padding: 8,
-      backgroundColor: "#0f1722",
-      position: "relative",
-    }}
-  >
-    <Text
+    <View
       style={{
-        color: "#fff",
-        fontSize: 18,
-        fontWeight: "700",
-        marginBottom: 8,
+        flex: 1,
+        padding: 6,
+        backgroundColor: "#0f1722",
+        position: "relative",
+        overflow: "hidden",
       }}
     >
-      {p.name}
-    </Text>
-
-    {/* Floating Text */}
+      <Text
+        style={{
+          color: "#ffffff",
+          fontSize: 18,
+          fontWeight: "700",
+          marginBottom: 5,
+        }}
+      >
+        {p.name}
+      </Text>
 
       {/* Floating Text */}
       <View
@@ -139,12 +142,12 @@ export default function Stats() {
         }}
       >
         {Array.isArray(floatingText) &&
-          floatingText.map((f, idx) => (
+          floatingText.map((entry, index) => (
             <FloatingEntry
-              key={f.id}
-              text={f.text}
-              type={f.type}
-              index={idx}
+              key={entry.id}
+              text={entry.text}
+              type={entry.type}
+              index={index}
             />
           ))}
       </View>
@@ -161,7 +164,7 @@ export default function Stats() {
           <Text style={{ color: "#9ca3af", fontSize: 12 }}>Level</Text>
           <Text
             style={{
-              color: "#fff",
+              color: "#ffffff",
               fontSize: 12,
               fontWeight: "600",
             }}
@@ -174,7 +177,7 @@ export default function Stats() {
           <Text style={{ color: "#9ca3af", fontSize: 12 }}>Gold</Text>
           <Text
             style={{
-              color: "#fff",
+              color: "#ffffff",
               fontSize: 12,
               fontWeight: "600",
             }}
@@ -187,7 +190,7 @@ export default function Stats() {
           <Text style={{ color: "#9ca3af", fontSize: 12 }}>Crowns</Text>
           <Text
             style={{
-              color: "#fff",
+              color: "#ffffff",
               fontSize: 12,
               fontWeight: "600",
             }}
@@ -198,29 +201,32 @@ export default function Stats() {
       </View>
 
       {/* HP */}
-      <View style={{ marginTop: 12 }}>
+      <View style={{ marginTop: 7 }}>
         <Text style={{ color: "#9ca3af", fontSize: 12 }}>❤️ HP</Text>
+
         <View
           style={{
-            height: 12,
-            borderRadius: 6,
+            height: 10,
+            borderRadius: 5,
             backgroundColor: "#1f2937",
             marginTop: 2,
+            overflow: "hidden",
           }}
         >
           <View
             style={{
-              height: 12,
+              height: 10,
               width: `${hpPercent}%`,
               backgroundColor: "#ef4444",
             }}
           />
         </View>
+
         <Text
           style={{
             color: "#9ca3af",
             fontSize: 12,
-            marginTop: 4,
+            marginTop: 2,
           }}
         >
           {p.hp} / {p.maxHp}
@@ -228,24 +234,27 @@ export default function Stats() {
       </View>
 
       {/* XP */}
-      <View style={{ marginTop: 12 }}>
+      <View style={{ marginTop: 7 }}>
         <Text style={{ color: "#9ca3af", fontSize: 12 }}>⭐ XP</Text>
+
         <View
           style={{
-            height: 12,
-            borderRadius: 6,
+            height: 10,
+            borderRadius: 5,
             backgroundColor: "#1f2937",
             marginTop: 2,
+            overflow: "hidden",
           }}
         >
           <View
             style={{
-              height: 12,
+              height: 10,
               width: `${xpPercent}%`,
               backgroundColor: "#f59e0b",
             }}
           />
         </View>
+
         <Text
           style={{
             color: "#9ca3af",
@@ -260,10 +269,10 @@ export default function Stats() {
       {/* Equipment */}
       <Text
         style={{
-          fontSize: 16,
-          color: "#fff",
+          color: "#ffffff",
+          fontSize: 15,
           fontWeight: "600",
-          marginTop: 4,
+          marginTop: 5,
         }}
       >
         🧰 Equipment
@@ -271,9 +280,11 @@ export default function Stats() {
 
       <View
         style={{
-          marginTop: 4,
-          padding: 4,
+          marginTop: 3,
+          padding: 6,
           backgroundColor: "#1e293b",
+          borderWidth: 1,
+          borderColor: "#475569",
           borderRadius: 8,
         }}
       >
@@ -281,12 +292,14 @@ export default function Stats() {
           style={{
             color: "#9ca3af",
             fontSize: 12,
-            marginTop: 4,
+            marginBottom: 3,
           }}
         >
           🗡 Weapon:{" "}
           {equipment?.weapon
-            ? `${equipment.weapon.name} (+${equipment.weapon.damageBonus || 0} dmg)`
+            ? `${equipment.weapon.name} (+${
+                equipment.weapon.damageBonus || 0
+              } dmg)`
             : "None"}
         </Text>
 
@@ -294,12 +307,13 @@ export default function Stats() {
           style={{
             color: "#9ca3af",
             fontSize: 12,
-            marginTop: 4,
           }}
         >
           🛡 Armor:{" "}
           {equipment?.armor
-            ? `${equipment.armor.name} (+${equipment.armor.defenseBonus || 0} def)`
+            ? `${equipment.armor.name} (+${
+                equipment.armor.defenseBonus || 0
+              } def)`
             : "None"}
         </Text>
       </View>
@@ -307,10 +321,10 @@ export default function Stats() {
       {/* Potions */}
       <Text
         style={{
-          fontSize: 16,
-          color: "#fff",
+          color: "#ffffff",
+          fontSize: 15,
           fontWeight: "700",
-          marginTop: 4,
+          marginTop: 5,
         }}
       >
         🧪 Potions
@@ -319,11 +333,10 @@ export default function Stats() {
       <View
         style={{
           flexDirection: "row",
-          justifyContent: "space-around",
-          marginTop: 6,
+          marginTop: 4,
         }}
       >
-        <View style={{ flex: 1, marginHorizontal: 4 }}>
+        <View style={{ flex: 1, marginRight: 3 }}>
           <Button
             title={`Health (${healthPotions})`}
             onPress={() => useFirstPotionByName("Health Potion")}
@@ -331,7 +344,7 @@ export default function Stats() {
           />
         </View>
 
-        <View style={{ flex: 1, marginHorizontal: 4 }}>
+        <View style={{ flex: 1, marginLeft: 3 }}>
           <Button
             title={`Golden (${goldenPotions})`}
             onPress={() => useFirstPotionByName("Golden Potion")}
@@ -344,11 +357,10 @@ export default function Stats() {
       <View
         style={{
           flexDirection: "row",
-          justifyContent: "space-around",
-          marginTop: 8,
+          marginTop: 6,
         }}
       >
-        <View style={{ flex: 1, marginHorizontal: 2 }}>
+        <View style={{ flex: 1, marginRight: 2 }}>
           <Button title="⚔️ Fight" onPress={fight} color="#dc2626" />
         </View>
 
@@ -356,7 +368,7 @@ export default function Stats() {
           <Button title="🛌 Rest" onPress={rest} color="#2563eb" />
         </View>
 
-        <View style={{ flex: 1, marginHorizontal: 2 }}>
+        <View style={{ flex: 1, marginLeft: 2 }}>
           <Button title="🗺 Explore" onPress={explore} color="#16a34a" />
         </View>
       </View>
@@ -364,26 +376,27 @@ export default function Stats() {
       {/* Recent Activity */}
       <Text
         style={{
-          fontSize: 16,
-          color: "#fff",
+          color: "#ffffff",
+          fontSize: 15,
           fontWeight: "700",
-          marginTop: 8,
-          marginBottom: 6,
+          marginTop: 6,
+          marginBottom: 4,
         }}
       >
-        📜 Recent Activity
+        📜 25 Recent Activities
       </Text>
 
       <View
         style={{
-          flex: 1,
-          minHeight: 0,
+          height: 125,
           backgroundColor: "#1e293b",
+          borderWidth: 1,
+          borderColor: "#475569",
           borderRadius: 8,
           padding: 6,
         }}
       >
-        <ScrollView>
+        <ScrollView showsVerticalScrollIndicator={false}>
           {recentActivity.length === 0 ? (
             <Text
               style={{
@@ -394,17 +407,17 @@ export default function Stats() {
               No activity yet.
             </Text>
           ) : (
-            recentActivity.map((entry, idx) => {
+            recentActivity.map((entry, index) => {
               const text =
                 typeof entry === "string" ? entry : entry.text;
 
               return (
                 <Text
-                  key={`${idx}-${text}`}
+                  key={`${index}-${text}`}
                   style={{
                     color: "#cbd5e1",
                     fontSize: 13,
-                    marginBottom: 6,
+                    marginBottom: 5,
                   }}
                 >
                   {text}
@@ -414,7 +427,7 @@ export default function Stats() {
           )}
         </ScrollView>
       </View>
-    <BannerAd />
+      <BannerAd />
     </View>
   );
 }

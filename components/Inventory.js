@@ -6,12 +6,27 @@ export default function Inventory() {
   const { inventory, equipItem, usePotion, sellItem, MAX_INVENTORY } = useGame();
 
   return (
-    <View style={{ backgroundColor: "#fff4e6", padding: 12, borderRadius: 12 }}>
-      <Text style={{ fontWeight: "800", marginBottom: 6, color: "#4a3728" }}>
+    <View
+  style={{
+    flex: 1,
+    backgroundColor: "#0f1722",
+    padding: 12,
+    borderRadius: 12,
+  }}
+>
+  <Text
+    style={{
+      fontWeight: "800",
+      marginBottom: 6,
+      color: "#ffffff",
+    }}
+  >
         Inventory ({inventory.length}/{MAX_INVENTORY})
       </Text>
 
-      <ScrollView style={{ maxHeight: 320 }}>
+      <ScrollView 
+      showsVerticalScrollIndicator={false}
+      style={{ maxHeight: 620 }}>
         {inventory.map((item, i) => {
           if (!item) return null;
           const safeName = item.name || `Unknown Item ${i}`;
@@ -20,12 +35,16 @@ export default function Inventory() {
             <View
               key={`${safeName}-${i}`}
               style={{
-                borderBottomWidth: 1,
-                borderColor: "#eadfce",
+                backgroundColor: "#1e293b",
+                borderWidth: 2,
+                borderColor: "#475569",
+                borderRadius: 8,
+                padding: 10,
+                marginBottom: 8,
                 paddingVertical: 6,
               }}
             >
-              <Text style={{ color: "#4a3728", marginBottom: 6 }}>
+              <Text style={{ color: "#ffffff", marginBottom: 6 }}>
                 {safeName}
                 {item.damageBonus
                   ? ` (+${item.damageBonus} dmg)`
@@ -70,35 +89,17 @@ export default function Inventory() {
         })}
 
         {inventory.length === 0 && (
-          <Text style={{ color: "#666", textAlign: "center", marginTop: 10 }}>
-            Empty.
-          </Text>
-        )}
+  <Text
+    style={{
+      color: "#9ca3af",
+      textAlign: "center",
+      paddingVertical: 24,
+    }}
+  >
+    Empty.
+  </Text>
+)}
       </ScrollView>
-      {/* Banner Ad Placeholder */}
-      <View
-        style={{
-          height: 60,
-          marginTop: 8,
-          borderWidth: 1,
-          borderColor: "#475569",
-          borderStyle: "dashed",
-          borderRadius: 8,
-          backgroundColor: "#111827",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <Text
-          style={{
-            color: "#94a3b8",
-            fontSize: 12,
-            fontStyle: "italic",
-          }}
-        >
-          Banner Ad (320×50 / AdSense)
-        </Text>
-      </View>
     </View>
   );
 }

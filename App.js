@@ -41,7 +41,6 @@ export default function App() {
     "Stats",
     "Inventory",
     "Settings",
-    "Wallet",
   ];
 
   const renderTab = () => {
@@ -135,8 +134,6 @@ if (showHowToPlay) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>👑 CrownBound 👑</Text>
-
       <View style={styles.tabRow}>
         {tabs.map((tabName) => (
           <TouchableOpacity
@@ -160,7 +157,7 @@ if (showHowToPlay) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#111",
+    backgroundColor: "#0f1722",
     paddingTop: 15,
   },
 
@@ -173,12 +170,21 @@ const styles = StyleSheet.create({
   },
 
   tabRow: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    justifyContent: "center",
-    backgroundColor: "#333",
-    paddingVertical: 4,
-  },
+  flexDirection: "row",
+  flexWrap: "wrap",
+  alignSelf: "center",
+  justifyContent: "center",
+
+  backgroundColor: "#111827",
+
+  paddingVertical: 8,
+  paddingHorizontal: 12,
+  marginBottom: 8,
+
+  borderWidth: 2,
+  borderColor: "#475569",
+  borderRadius: 10,
+},
 
   tabButton: {
     paddingHorizontal: 10,
@@ -188,7 +194,7 @@ const styles = StyleSheet.create({
   },
 
   tabActive: {
-    backgroundColor: "#555",
+    backgroundColor: "#2563eb",
   },
 
   tabText: {
@@ -200,5 +206,6 @@ const styles = StyleSheet.create({
   content: {
     flex: 1,
     padding: 8,
+    backgroundColor: "#0f1722",
   },
 });

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { DISPLAY_VERSION } from "../config/version";
 import {
   View,
   Text,
@@ -11,7 +12,6 @@ export default function IntroScreen({
   hasCharacter,
   playerName,
   playerLevel,
-  appVersion,
   onCreateCharacter,
   onStartPlaying,
 }) {
@@ -81,7 +81,7 @@ export default function IntroScreen({
               }}
               onSubmitEditing={handleCreateCharacter}
               placeholder="Enter character name"
-              placeholderTextColor="#777"
+              placeholderTextColor="#9ca3af"
               maxLength={24}
               autoCapitalize="words"
               autoCorrect={false}
@@ -111,9 +111,7 @@ export default function IntroScreen({
   Your progress is saved automatically on this device.
 </Text>
 
-<Text style={styles.version}>
-  {appVersion}
-</Text>
+<Text style={styles.version}>{DISPLAY_VERSION}</Text>
       </View>
     </View>
   );
@@ -123,7 +121,7 @@ const styles = StyleSheet.create({
   screen: {
     flex: 1,
     minHeight: "100vh",
-    backgroundColor: "#111",
+    backgroundColor: "#0f1722",
     justifyContent: "center",
     alignItems: "center",
     padding: 20,
@@ -132,9 +130,9 @@ const styles = StyleSheet.create({
   card: {
     width: "100%",
     maxWidth: 460,
-    backgroundColor: "#1b1b1b",
-    borderWidth: 1,
-    borderColor: "#4b3b16",
+    backgroundColor: "#1e293b",
+    borderWidth: 2,
+    borderColor: "#475569",
     borderRadius: 14,
     padding: 28,
     alignItems: "center",
@@ -154,7 +152,7 @@ const styles = StyleSheet.create({
   },
 
   subtitle: {
-    color: "#ccc",
+    color: "#9ca3af",
     fontSize: 16,
     lineHeight: 23,
     textAlign: "center",
@@ -197,18 +195,18 @@ prompt: {
   },
 
   input: {
-    width: "100%",
-    backgroundColor: "#0d0d0d",
-    color: "#fff",
-    borderWidth: 1,
-    borderColor: "#555",
-    borderRadius: 8,
-    paddingHorizontal: 14,
-    paddingVertical: 12,
-    fontSize: 17,
-    marginBottom: 8,
-    outlineStyle: "none",
-  },
+  width: "100%",
+  backgroundColor: "#111827",
+  color: "#ffffff",
+  borderWidth: 2,
+  borderColor: "#475569",
+  borderRadius: 8,
+  paddingHorizontal: 14,
+  paddingVertical: 12,
+  fontSize: 17,
+  marginBottom: 8,
+  outlineStyle: "none",
+},
 
   error: {
     color: "#ff6b6b",
@@ -219,14 +217,16 @@ prompt: {
   },
 
   primaryButton: {
-    width: "100%",
-    backgroundColor: "#8a6417",
-    borderRadius: 8,
-    paddingVertical: 13,
-    paddingHorizontal: 18,
-    alignItems: "center",
-    marginTop: 10,
-  },
+  width: "100%",
+  backgroundColor: "#2563eb",
+  borderWidth: 2,
+  borderColor: "#475569",
+  borderRadius: 8,
+  paddingVertical: 13,
+  paddingHorizontal: 18,
+  alignItems: "center",
+  marginTop: 10,
+},
 
   disabledButton: {
     opacity: 0.45,

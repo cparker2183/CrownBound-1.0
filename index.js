@@ -3,6 +3,9 @@ import React from "react";
 import { AppRegistry } from "react-native-web";
 import App from "./App.js";
 import { GameProvider } from "./engine/GameContext.js";
+import { DISPLAY_VERSION } from "./config/version";
+
+document.title = `CrownBound ${DISPLAY_VERSION}`;
 
 // ✅ Create a simple entry component that wraps the app
 function CrownBoundRoot() {
