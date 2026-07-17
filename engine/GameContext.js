@@ -21,8 +21,6 @@ export const useGame = () => useContext(GameContext);
 const STORAGE_KEY = "crownbound_player_v1_snapshot_v2";
 const DEFAULT_SAVE_INTERVAL_MS = 5000;
 
-const DAILY_USD_LIMIT = 2.0; // daily payout cap (simulation)
-const CROWN_TO_USD = 0.10; // conversion rate for simulation: 1 Crown = $0.10
 const MAX_CROWNS_FROM_ADS_PER_DAY = 5; // crowns via ads per day
 const MAX_AD_REWARDS_PER_DAY = 5; // limits non-crown ad rewards
 const MAX_INVENTORY = 100;
@@ -140,7 +138,6 @@ export const GameProvider = ({ children }) => {
   const [potionEffect, setPotionEffect] = useState(saved?.potionEffect || null);
 
   // Crowns & ad accounting (daily counters)
-  const [crownsConvertedToday, setCrownsConvertedToday] = useState(Number.isFinite(saved?.crownsConvertedToday) ? saved.crownsConvertedToday : 0);
   const [crownsFromAdsToday, setCrownsFromAdsToday] = useState(Number.isFinite(saved?.crownsFromAdsToday) ? saved.crownsFromAdsToday : 0);
   const [dailyResetTs, setDailyResetTs] = useState(Number.isFinite(saved?.dailyResetTs) ? saved.dailyResetTs : startOfDayTs());
   const [adsWatchedToday, setAdsWatchedToday] = useState(Number.isFinite(saved?.adsWatchedToday) ? saved.adsWatchedToday : 0);
@@ -183,7 +180,6 @@ export const GameProvider = ({ children }) => {
           equipment,
           activityLog,
           potionEffect,
-          crownsConvertedToday,
           crownsFromAdsToday,
           dailyResetTs,
           adsWatchedToday,
@@ -211,7 +207,6 @@ export const GameProvider = ({ children }) => {
     equipment,
     activityLog,
     potionEffect,
-    crownsConvertedToday,
     crownsFromAdsToday,
     dailyResetTs,
     adsWatchedToday,
@@ -238,7 +233,6 @@ export const GameProvider = ({ children }) => {
           equipment,
           activityLog,
           potionEffect,
-          crownsConvertedToday,
           crownsFromAdsToday,
           dailyResetTs,
           adsWatchedToday,
@@ -270,7 +264,6 @@ export const GameProvider = ({ children }) => {
     equipment,
     activityLog,
     potionEffect,
-    crownsConvertedToday,
     crownsFromAdsToday,
     dailyResetTs,
     adsWatchedToday,
@@ -380,7 +373,6 @@ export const GameProvider = ({ children }) => {
     const today = startOfDayTs();
     if ((dailyResetTs || 0) < today) {
       setDailyResetTs(today);
-      setCrownsConvertedToday(0);
       setCrownsFromAdsToday(0);
       setAdsWatchedToday(0);
       addToLog("🔁 Daily reset applied.");
@@ -505,29 +497,7 @@ export const GameProvider = ({ children }) => {
     return addCrowns(amount, source);
   };
 
-  // convert crowns to USD (simulation) - enforces daily USD cap
-  const convertCrownsToUsd = (crownsRequested) => {
-    ensureDailyReset();
-    const dailyCrownsCap = Math.floor(DAILY_USD_LIMIT / CROWN_TO_USD);
-    const remainingConvertible = Math.max(0, dailyCrownsCap - (crownsConvertedToday || 0));
-    if (remainingConvertible <= 0) {
-      return { success: false, converted: 0, usd: 0, message: "Daily payout limit reached." };
-    }
-    const available = player.crowns || 0;
-    const toConvert = Math.min(Math.floor(crownsRequested || 0), available, remainingConvertible);
-    if (toConvert <= 0) {
-      return { success: false, converted: 0, usd: 0, message: "Insufficient crowns or daily cap." };
-    }
-
-    setPlayer((p) => normalizePlayer({ ...p, crowns: Math.max(0, (p.crowns || 0) - toConvert) }));
-    setCrownsConvertedToday((n) => (n || 0) + toConvert);
-    const usd = toConvert * CROWN_TO_USD;
-    addNotableLog("CROWN_CONVERT", `Converted ${toConvert} Crowns into $${usd.toFixed(2)} (simulation)`);
-    addFloatingText(`Converted ${toConvert} → $${usd.toFixed(2)}`, "gold");
-    try { playEffect("coin"); } catch (e) {}
-    return { success: true, converted: toConvert, usd, message: "Converted." };
-  };
-
+  
   // ---------- Ads / rewarded flow ----------
   // watchAdReward: gives xp/gold/items with probabilities; rare chance for crowns (capped)
   const watchAdReward = () => {
@@ -921,7 +891,6 @@ const createCharacter = (characterName) => {
   setActivityLog([]);
   setFloatingText([]);
   setPotionEffect(null);
-  setCrownsConvertedToday(0);
   setCrownsFromAdsToday(0);
   setAdsWatchedToday(0);
   setDailyResetTs(startOfDayTs());
@@ -933,7 +902,6 @@ const createCharacter = (characterName) => {
     equipment: emptyEquipment,
     activityLog: [],
     potionEffect: null,
-    crownsConvertedToday: 0,
     crownsFromAdsToday: 0,
     dailyResetTs: startOfDayTs(),
     adsWatchedToday: 0,
@@ -973,7 +941,6 @@ const resetCharacter = () => {
   setActivityLog([]);
   setFloatingText([]);
   setPotionEffect(null);
-  setCrownsConvertedToday(0);
   setCrownsFromAdsToday(0);
   setAdsWatchedToday(0);
   setDailyResetTs(startOfDayTs());
@@ -1032,10 +999,8 @@ const resetCharacter = () => {
     // crowns & economy
     addCrowns,
     awardCrowns,
-    convertCrownsToUsd,
-    watchAdReward,
-    crownsConvertedToday,
-    crownsFromAdsToday,
+        watchAdReward,
+        crownsFromAdsToday,
 
     // helpers
     addLog: addToLog,
@@ -1060,11 +1025,10 @@ const resetCharacter = () => {
     completeQuest,
 
     // constants exposed for UI
-    DAILY_USD_LIMIT,
-CROWN_TO_USD,
-MAX_CROWNS_FROM_ADS_PER_DAY,
-MAX_AD_REWARDS_PER_DAY,
-MAX_INVENTORY,
+
+    MAX_CROWNS_FROM_ADS_PER_DAY,
+    MAX_AD_REWARDS_PER_DAY,
+    MAX_INVENTORY,
   };
 
   return <GameContext.Provider value={contextValue}>{children}</GameContext.Provider>;

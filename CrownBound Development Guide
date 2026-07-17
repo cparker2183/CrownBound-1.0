@@ -562,3 +562,15 @@ Standing will later advance through the established rank list.
 Stats and Kingdom pages must read the Standing from the same account data.
 Until progression is implemented, the UI may display the temporary default Standing of “Member.”
 
+
+### Permanent Crowns
+
+Crowns are permanent account-wide progress.
+
+- Crowns persist across character resets and new characters.
+- Crowns are never spent, converted, exchanged, consumed, or reduced.
+- Crowns represent lifetime support and contribution to a Kingdom.
+- Crowns may be earned through gameplay.
+- Players will eventually be able to earn Crowns by Supporting CrownBound through rewarded advertisements.
+- The Supporting CrownBound rewarded-ad system is planned but is not yet implemented.
+- Kingdom Standing will eventually use permanent account data rather than hardcoded text.
