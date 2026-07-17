@@ -1,6 +1,6 @@
 {
   "name": "crownbound",
-  "version": "0.9.3",
+  "version": "0.10.3",
   "description": "CrownBound RPG – web and mobile hybrid game",
   "scripts": {
   "start": "npm run start:web",
