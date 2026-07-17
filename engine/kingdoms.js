@@ -5,7 +5,7 @@ export const KINGDOM_STATUS = {
   FUTURE: "future",
 };
 
-export const KINGDOM_UNLOCK_LEVEL = 10;
+export const KINGDOM_UNLOCK_LEVEL = 3;
 
 export const KINGDOMS = [
   {
