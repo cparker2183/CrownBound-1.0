@@ -649,3 +649,363 @@ Kingdom messages should be used for:
 - Future quests and story content
 
 The wording should reinforce the identity and culture of each Kingdom while remaining concise and respectful.
+
+
+### Future Feature — Kingdom Identity
+
+Each Kingdom should immediately feel unique through its visual identity.
+
+Future visual elements include:
+
+- Unique Kingdom crest
+- Unique color palette
+- Unique background environment
+- Unique banners and heraldry
+- Unique voice and writing style
+- Unique promotion announcements
+
+The Kingdom page should eventually include a subtle illustrated background representing the Kingdom's homeland (castle, forest, mountains, desert, coast, etc.) while preserving readability.
+
+These backgrounds should be decorative rather than interactive and should reinforce each Kingdom's culture and atmosphere.
+
+Kingdom Visual Identity
+
+Every Kingdom should immediately feel unique while still appearing to belong to the same world.
+
+Kingdom identity is expressed through:
+
+Crest.
+Heraldic colors.
+Banner.
+Landscape.
+Heraldic symbol.
+Voice.
+Oath.
+Standing.
+Music (future).
+
+Kingdom identity is cosmetic, narrative, and cultural.
+
+Kingdom choice does not provide gameplay advantages.
+
+Kingdom Crest Style
+
+All twelve Kingdom crests should be created as a unified collection.
+
+Every crest should follow the same artistic direction:
+
+Medieval illuminated manuscript.
+Rich painterly textures.
+Gold leaf ornamentation.
+Slight parchment aging.
+Heraldic composition.
+Bold, readable silhouettes.
+Consistent lighting and craftsmanship.
+Recognizable at 40 × 50 pixels.
+
+Master artwork specifications:
+
+Portrait orientation.
+800 × 1000 pixels.
+High-resolution master artwork.
+Stored in assets/kingdoms/.
+
+Variation should come from each Kingdom's values, colors, and symbols—not from changes in artistic style.
+
+Heraldic Color System
+
+Each Kingdom will eventually define:
+
+Primary color.
+Secondary color.
+Heraldic metal (gold or silver).
+
+These colors should be used consistently throughout the game, including:
+
+Crests.
+Banners.
+Promotion artwork.
+Kingdom backgrounds.
+Future interface accents.
+
+Exact color values may be refined during artwork development.
+
+No two Kingdoms should share a confusingly similar visual identity.
+
+Future Kingdom Identity
+
+Each Kingdom will eventually develop a complete identity beyond its crest.
+
+This includes:
+
+Unique heraldic symbol.
+Unique banner.
+Unique homeland landscape.
+Unique writing voice.
+Unique promotion messages.
+Unique ceremonial artwork.
+Future ambient music.
+
+Every Kingdom should feel like a distinct culture while remaining part of the same medieval world.
+
+Artwork Development Order
+
+Artwork should be developed in the following order:
+
+Kingdom crests.
+Kingdom banners.
+Kingdom landscapes.
+Standing promotion artwork.
+Kingdom interface accents.
+Ambient music.
+
+The complete collection of twelve Kingdom crests should be finished before the artistic style is considered final.
+
+Kingdom	Primary	Supporting	Oath
+Avareth	Honor	Justice, Mercy	“A true crown is earned by keeping one's word.”
+Merithal	Unity	Compassion, Stewardship	“No triumph is greater than one shared.”
+Solvyr	Wisdom	Curiosity, Creativity	“Knowledge becomes wisdom when it serves others.”
+Haldren	Resolve	Hope, Liberty	“When the path grows difficult, we endure.”
+Velmora	Hope	Compassion, Creativity	“Where hope endures, compassion finds a way forward.”
+Corenth	Justice	Honor, Stewardship	“Justice is kept by those who serve with honor and guard what belongs to all.”
+Delmara	Compassion	Mercy, Unity	“We rise together when mercy leaves no one behind.”
+Norathen	Stewardship	Resolve, Wisdom	“Guard with wisdom, endure with purpose, and leave the realm stronger than you found it.”
+Kireth	Curiosity	Wisdom, Liberty	“Question freely, seek wisely, and let truth open every door.”
+Lorvayn	Liberty	Resolve, Justice	“Freedom endures when defended with resolve and guided by justice.”
+Eryvale	Mercy	Honor, Compassion	“Honor is greatest when compassion stays the hand of vengeance.”
+Theryn	Creativity	Curiosity, Hope	“Imagine boldly, question deeply, and shape a future worth believing in.”
+
+
+Avareth
+
+From our established lore, Avareth is defined by:
+
+Primary Value: Honor
+Supporting Values: Justice, Mercy
+Oath: "A true crown is earned by keeping one's word."
+
+Visually, I would make Avareth feel noble and steadfast rather than warlike.
+
+Primary color: Royal blue
+Secondary: Antique gold
+Accent: Ivory parchment
+Shield: Classic heater shield
+Central symbol: A crowned upright sword, representing honorable authority guided by justice
+Decoration: Gold leaf, subtle oak leaves, restrained illuminated-manuscript flourishes
+
+This establishes the visual standard for all Kingdoms while embodying honor, trust, and earned leadership.
+
+Merithal
+
+From our established lore, Merithal is defined by:
+
+Primary Value: Unity
+Supporting Values: Compassion, Stewardship
+Oath: "No triumph is greater than one shared."
+
+Visually, I would distinguish it from Avareth by making it feel cooperative rather than martial.
+
+Primary color: Deep emerald green
+Secondary: Antique gold
+Accent: Ivory parchment
+Shield: Tall Gothic shield
+Central symbol: An open book beneath an eight-pointed star, representing shared wisdom and enlightened leadership
+Decoration: Laurel branches, illuminated manuscript flourishes, elegant rather than aggressive ornamentation
+
+This creates a Kingdom that values bringing people together through knowledge and service.
+
+Solvyr
+
+From our established lore, Solvyr is defined by:
+
+Primary Value: Wisdom
+Supporting Values: Curiosity, Creativity
+Oath: "Knowledge becomes wisdom when it serves others."
+
+Visually, Solvyr should feel scholarly and visionary.
+
+Primary color: Sapphire blue
+Secondary: Antique gold
+Accent: Silver-white
+Shield: Elegant kite shield
+Central symbol: A radiant celestial compass surrounding an open eye, representing insight and discovery
+Decoration: Constellations, geometric manuscript borders, delicate stars
+
+This creates a Kingdom devoted to learning, discovery, and using knowledge for the good of others.
+
+Haldren
+
+From our established lore, Haldren is defined by:
+
+Primary Value: Resolve
+Supporting Values: Hope, Liberty
+Oath: "When the path grows difficult, we endure."
+
+Visually, Haldren should feel resilient and unbreakable.
+
+Primary color: Crimson red
+Secondary: Burnished gold
+Accent: Iron gray
+Shield: Broad Norman shield
+Central symbol: A mountain before a rising sun, symbolizing unwavering determination through hardship
+Decoration: Oak branches, engraved steel details, weathered gold leaf
+
+This creates a Kingdom that stands firm when every other Kingdom falters.
+
+Velmora
+
+From our established lore, Velmora is defined by:
+
+Primary Value: Hope
+Supporting Values: Compassion, Creativity
+Oath: "Where hope endures, compassion finds a way forward."
+
+Visually, Velmora should feel uplifting and radiant.
+
+Primary color: Sky blue
+Secondary: Gold
+Accent: White ivory
+Shield: Rounded Renaissance shield
+Central symbol: A rising sun above a blooming flower, representing hope continually renewed
+Decoration: Flowing vines, radiant flourishes, illuminated floral borders
+
+This creates a Kingdom that inspires optimism and renewal.
+
+1. Generate an 800 x 1000 image of a crest based on the information above.
+
+2. Create a matching emblem sized 512×512: The same crest adapted to a rounded-square frame with a border color that complements the shield, preserving the shield and composition.
+
+3. Create a 128×128 matching icon with the shield alone on a transparent background, with no parchment or frame.
+
+Corenth
+
+From our established lore, Corenth is defined by:
+
+Primary Value: Justice
+Supporting Values: Honor, Stewardship
+Oath: "Justice is kept by those who serve with honor and guard what belongs to all."
+
+Visually, Corenth should feel disciplined and impartial.
+
+Primary color: Deep burgundy
+Secondary: Antique gold
+Accent: Ivory
+Shield: Traditional heater shield
+Central symbol: Balanced scales beneath a royal crown
+Decoration: Straight geometric borders, subtle heraldic knotwork
+
+This creates a Kingdom devoted to fair judgment and faithful service.
+
+Delmara
+
+From our established lore, Delmara is defined by:
+
+Primary Value: Compassion
+Supporting Values: Mercy, Unity
+Oath: "We rise together when mercy leaves no one behind."
+
+Visually, Delmara should feel warm and welcoming.
+
+Primary color: Rose crimson
+Secondary: Gold
+Accent: Cream ivory
+Shield: Graceful rounded shield
+Central symbol: Two clasped hands beneath a heart-shaped lily
+Decoration: Flowing ribbons, flowering vines, soft manuscript ornamentation
+
+This creates a Kingdom whose greatest strength is caring for others.
+
+Norathen
+
+From our established lore, Norathen is defined by:
+
+Primary Value: Stewardship
+Supporting Values: Resolve, Wisdom
+Oath: "Guard with wisdom, endure with purpose, and leave the realm stronger than you found it."
+
+Visually, Norathen should feel ancient and dependable.
+
+Primary color: Forest green
+Secondary: Bronze gold
+Accent: Earth brown
+Shield: Tall Norman shield
+Central symbol: A great oak tree rooted within a crown
+Decoration: Leaves, acorns, engraved woodland borders
+
+This creates a Kingdom devoted to protecting and preserving the realm.
+
+Kireth
+
+From our established lore, Kireth is defined by:
+
+Primary Value: Curiosity
+Supporting Values: Wisdom, Liberty
+Oath: "Question freely, seek wisely, and let truth open every door."
+
+Visually, Kireth should feel adventurous and inventive.
+
+Primary color: Teal
+Secondary: Antique gold
+Accent: Bright ivory
+Shield: Slender Gothic shield
+Central symbol: A golden key beneath a guiding star
+Decoration: Scrollwork, compass roses, elegant manuscript flourishes
+
+This creates a Kingdom that celebrates exploration and discovery.
+
+Lorvayn
+
+From our established lore, Lorvayn is defined by:
+
+Primary Value: Liberty
+Supporting Values: Resolve, Justice
+Oath: "Freedom endures when defended with resolve and guided by justice."
+
+Visually, Lorvayn should feel bold and independent.
+
+Primary color: Purple
+Secondary: Antique gold
+Accent: White
+Shield: Broad heater shield
+Central symbol: A soaring eagle with outstretched wings above a broken chain
+Decoration: Feather motifs, clean heraldic borders
+
+This creates a Kingdom that protects freedom through courage and responsibility.
+
+Eryvale
+
+From our established lore, Eryvale is defined by:
+
+Primary Value: Mercy
+Supporting Values: Honor, Compassion
+Oath: "Honor is greatest when compassion stays the hand of vengeance."
+
+Visually, Eryvale should feel gentle but noble.
+
+Primary color: White silver
+Secondary: Gold
+Accent: Soft blue
+Shield: Elegant rounded shield
+Central symbol: A white dove carrying an olive branch beneath a crown
+Decoration: Olive leaves, graceful illuminated borders, subtle gold filigree
+
+This creates a Kingdom where forgiveness is considered true strength.
+
+Theryn
+
+From our established lore, Theryn is defined by:
+
+Primary Value: Creativity
+Supporting Values: Curiosity, Hope
+Oath: "Imagine boldly, question deeply, and shape a future worth believing in."
+
+Visually, Theryn should feel imaginative and vibrant.
+
+Primary color: Royal violet
+Secondary: Gold
+Accent: Azure blue
+Shield: Decorative Renaissance shield
+Central symbol: A golden quill writing a shining star, representing ideas becoming reality
+Decoration: Flowing scrollwork, ornate illuminated flourishes, artistic motifs
+
+This creates a Kingdom that celebrates imagination, invention, and the courage to create something new.

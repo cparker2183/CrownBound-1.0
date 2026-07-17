@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from "react";
 import {
   View,
   Text,
+  Image,
   Button,
   ScrollView,
   Animated,
@@ -169,32 +170,45 @@ export default function Stats() {
       >
         {kingdom ? (
           <>
-            {/* Placeholder for future 800 × 1000 Kingdom crest artwork */}
-            <View
-              style={{
-                width: 40,
-                height: 50,
-                flexShrink: 0,
-                backgroundColor: "#111827",
-                borderWidth: 1,
-                borderColor: "#475569",
-                borderRadius: 6,
-                alignItems: "center",
-                justifyContent: "center",
-                marginRight: 7,
-              }}
-            >
-              <Text
-                style={{
-                  color: "#6b7280",
-                  fontSize: 8,
-                  lineHeight: 10,
-                  textAlign: "center",
-                }}
-              >
-                Kingdom{"\n"}Crest
-              </Text>
-            </View>
+            {kingdom.artwork?.icon ? (
+  <Image
+    source={{ uri: kingdom.artwork.icon }}
+    style={{
+      width: 40,
+      height: 50,
+      flexShrink: 0,
+      borderRadius: 6,
+      marginRight: 7,
+      resizeMode: "contain",
+    }}
+  />
+) : (
+  <View
+    style={{
+      width: 40,
+      height: 50,
+      flexShrink: 0,
+      backgroundColor: "#111827",
+      borderWidth: 1,
+      borderColor: "#475569",
+      borderRadius: 6,
+      alignItems: "center",
+      justifyContent: "center",
+      marginRight: 7,
+    }}
+  >
+    <Text
+      style={{
+        color: "#6b7280",
+        fontSize: 8,
+        lineHeight: 10,
+        textAlign: "center",
+      }}
+    >
+      Kingdom{"\n"}Crest
+    </Text>
+  </View>
+)}
 
             <View
   style={{

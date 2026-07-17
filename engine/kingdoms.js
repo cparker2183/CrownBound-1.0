@@ -1,4 +1,20 @@
-// src/engine/Kingdoms.js
+// engine/Kingdoms.js
+
+import avarethCrest from "../assets/kingdoms/avareth/avareth-crest-800x1000.png";
+import avarethEmblem from "../assets/kingdoms/avareth/avareth-emblem-512x512.png";
+import avarethIcon from "../assets/kingdoms/avareth/avareth-icon-128x128.png";
+
+import merithalCrest from "../assets/kingdoms/merithal/merithal-crest-800x1000.png";
+import merithalEmblem from "../assets/kingdoms/merithal/merithal-emblem-512x512.png";
+import merithalIcon from "../assets/kingdoms/merithal/merithal-icon-128x128.png";
+
+import solvyrCrest from "../assets/kingdoms/solvyr/solvyr-crest-800x1000.png";
+import solvyrEmblem from "../assets/kingdoms/solvyr/solvyr-emblem-512x512.png";
+import solvyrIcon from "../assets/kingdoms/solvyr/solvyr-icon-128x128.png";
+
+import haldrenCrest from "../assets/kingdoms/haldren/haldren-crest-800x1000.png";
+import haldrenEmblem from "../assets/kingdoms/haldren/haldren-emblem-512x512.png";
+import haldrenIcon from "../assets/kingdoms/haldren/haldren-icon-128x128.png";
 
 export const KINGDOM_STATUS = {
   LAUNCH: "launch",
@@ -15,7 +31,13 @@ export const KINGDOMS = [
     primaryValue: "Honor",
     supportingValues: ["Justice", "Mercy"],
     oath: "A true crown is earned by keeping one's word.",
+    artwork: {
+      crest: avarethCrest,
+      emblem: avarethEmblem,
+      icon: avarethIcon,
+    },
   },
+
   {
     id: "merithal",
     name: "Merithal",
@@ -23,7 +45,13 @@ export const KINGDOMS = [
     primaryValue: "Unity",
     supportingValues: ["Compassion", "Stewardship"],
     oath: "No triumph is greater than one shared.",
+    artwork: {
+      crest: merithalCrest,
+      emblem: merithalEmblem,
+      icon: merithalIcon,
+    },
   },
+
   {
     id: "solvyr",
     name: "Solvyr",
@@ -31,81 +59,138 @@ export const KINGDOMS = [
     primaryValue: "Wisdom",
     supportingValues: ["Curiosity", "Creativity"],
     oath: "Knowledge becomes wisdom when it serves others.",
+
+    artwork: {
+  crest: solvyrCrest,
+  emblem: solvyrEmblem,
+  icon: solvyrIcon,
   },
-  {
-    id: "haldren",
-    name: "Haldren",
-    status: KINGDOM_STATUS.LAUNCH,
-    primaryValue: "Resolve",
-    supportingValues: ["Hope", "Liberty"],
-    oath: "When the path grows difficult, we endure.",
   },
 
-  // Future kingdom concepts.
-  // Their supporting values are intentionally left open until expansion.
+  {
+  id: "haldren",
+  name: "Haldren",
+  status: KINGDOM_STATUS.LAUNCH,
+  primaryValue: "Resolve",
+  supportingValues: ["Hope", "Liberty"],
+  oath: "When the path grows difficult, we endure.",
+  artwork: {
+    crest: haldrenCrest,
+    emblem: haldrenEmblem,
+    icon: haldrenIcon,
+  },
+  },
+
   {
     id: "velmora",
     name: "Velmora",
     status: KINGDOM_STATUS.FUTURE,
     primaryValue: "Hope",
-    supportingValues: [],
-    oath: "Even the smallest light can guide a kingdom.",
+    supportingValues: ["Compassion", "Creativity"],
+    oath:
+      "Where hope endures, compassion finds a way forward.",
+
+    // Expected directory:
+    // assets/kingdoms/velmora/
+    artwork: null,
   },
+
   {
     id: "corenth",
     name: "Corenth",
     status: KINGDOM_STATUS.FUTURE,
     primaryValue: "Justice",
-    supportingValues: [],
-    oath: "Fairness is the shield of every citizen.",
+    supportingValues: ["Honor", "Stewardship"],
+    oath:
+      "Justice is kept by those who serve with honor and guard what belongs to all.",
+
+    // Expected directory:
+    // assets/kingdoms/corenth/
+    artwork: null,
   },
+
   {
     id: "delmara",
     name: "Delmara",
     status: KINGDOM_STATUS.FUTURE,
     primaryValue: "Compassion",
-    supportingValues: [],
-    oath: "Strength is measured by how we lift others.",
+    supportingValues: ["Mercy", "Unity"],
+    oath:
+      "We rise together when mercy leaves no one behind.",
+
+    // Expected directory:
+    // assets/kingdoms/delmara/
+    artwork: null,
   },
+
   {
     id: "norathen",
     name: "Norathen",
     status: KINGDOM_STATUS.FUTURE,
     primaryValue: "Stewardship",
-    supportingValues: [],
-    oath: "Guard what is entrusted to you, for others will follow.",
+    supportingValues: ["Resolve", "Wisdom"],
+    oath:
+      "Guard with wisdom, endure with purpose, and leave the realm stronger than you found it.",
+
+    // Expected directory:
+    // assets/kingdoms/norathen/
+    artwork: null,
   },
+
   {
     id: "kireth",
     name: "Kireth",
     status: KINGDOM_STATUS.FUTURE,
     primaryValue: "Curiosity",
-    supportingValues: [],
-    oath: "Every unanswered question is an invitation.",
+    supportingValues: ["Wisdom", "Liberty"],
+    oath:
+      "Question freely, seek wisely, and let truth open every door.",
+
+    // Expected directory:
+    // assets/kingdoms/kireth/
+    artwork: null,
   },
+
   {
     id: "lorvayn",
     name: "Lorvayn",
     status: KINGDOM_STATUS.FUTURE,
     primaryValue: "Liberty",
-    supportingValues: [],
-    oath: "Freedom carries both privilege and responsibility.",
+    supportingValues: ["Resolve", "Justice"],
+    oath:
+      "Freedom endures when defended with resolve and guided by justice.",
+
+    // Expected directory:
+    // assets/kingdoms/lorvayn/
+    artwork: null,
   },
+
   {
     id: "eryvale",
     name: "Eryvale",
     status: KINGDOM_STATUS.FUTURE,
     primaryValue: "Mercy",
-    supportingValues: [],
-    oath: "The greatest victory is choosing mercy when vengeance is easy.",
+    supportingValues: ["Honor", "Compassion"],
+    oath:
+      "Honor is greatest when compassion stays the hand of vengeance.",
+
+    // Expected directory:
+    // assets/kingdoms/eryvale/
+    artwork: null,
   },
+
   {
     id: "theryn",
     name: "Theryn",
     status: KINGDOM_STATUS.FUTURE,
     primaryValue: "Creativity",
-    supportingValues: [],
-    oath: "Every new idea shapes tomorrow's kingdom.",
+    supportingValues: ["Curiosity", "Hope"],
+    oath:
+      "Imagine boldly, question deeply, and shape a future worth believing in.",
+
+    // Expected directory:
+    // assets/kingdoms/theryn/
+    artwork: null,
   },
 ];
 
@@ -118,7 +203,9 @@ export function getKingdomById(kingdomId) {
     return null;
   }
 
-  return KINGDOMS.find((kingdom) => kingdom.id === kingdomId) || null;
+  return KINGDOMS.find(
+    (kingdom) => kingdom.id === kingdomId
+  ) || null;
 }
 
 export function isValidKingdomId(kingdomId) {

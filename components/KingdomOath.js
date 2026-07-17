@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
+  Image,
   Pressable,
   ScrollView,
   useWindowDimensions,
@@ -143,37 +144,52 @@ export default function KingdomOath({ onContinue = () => {} }) {
             }}
           >
             {/* Future 800 × 1000 kingdom crest artwork. */}
-            <View
-              style={{
-                width: 144,
-                height: 180,
-                flexShrink: 0,
-                backgroundColor: "#111827",
-                borderColor: "#f5c451",
-                borderWidth: 1,
-                borderRadius: 12,
-                alignItems: "center",
-                justifyContent: "center",
-                marginRight: useSingleColumn ? 0 : 20,
-                marginBottom: useSingleColumn ? 16 : 0,
-              }}
-            >
-              <Text
-                style={{
-                  color: "#6b7280",
-                  fontSize: 13,
-                  lineHeight: 19,
-                  textAlign: "center",
-                  paddingHorizontal: 8,
-                }}
-              >
-                {standingKingdom.name}
-                {"\n"}
-                Kingdom Crest
-                {"\n"}
-                800 × 1000
-              </Text>
-            </View>
+            {standingKingdom.artwork?.crest ? (
+  <Image
+    source={{ uri: standingKingdom.artwork.crest }}
+    style={{
+      width: 144,
+      height: 180,
+      flexShrink: 0,
+      borderRadius: 12,
+      marginRight: useSingleColumn ? 0 : 20,
+      marginBottom: useSingleColumn ? 16 : 0,
+      resizeMode: "contain",
+    }}
+  />
+) : (
+  <View
+    style={{
+      width: 144,
+      height: 180,
+      flexShrink: 0,
+      backgroundColor: "#111827",
+      borderColor: "#f5c451",
+      borderWidth: 1,
+      borderRadius: 12,
+      alignItems: "center",
+      justifyContent: "center",
+      marginRight: useSingleColumn ? 0 : 20,
+      marginBottom: useSingleColumn ? 16 : 0,
+    }}
+  >
+    <Text
+      style={{
+        color: "#6b7280",
+        fontSize: 13,
+        lineHeight: 19,
+        textAlign: "center",
+        paddingHorizontal: 8,
+      }}
+    >
+      {standingKingdom.name}
+      {"\n"}
+      Kingdom Crest
+      {"\n"}
+      800 × 1000
+    </Text>
+  </View>
+)}
 
             <View
               style={{
@@ -387,31 +403,45 @@ export default function KingdomOath({ onContinue = () => {} }) {
                 alignItems: "center",
               }}
             >
-              {/* Small display of the same 800 × 1000 crest. */}
-              <View
-                style={{
-                  width: 40,
-                  height: 50,
-                  flexShrink: 0,
-                  backgroundColor: "#111827",
-                  borderColor: "#4b5563",
-                  borderWidth: 1,
-                  borderRadius: 6,
-                  alignItems: "center",
-                  justifyContent: "center",
-                  marginRight: 9,
-                }}
-              >
-                <Text
-                  style={{
-                    color: "#6b7280",
-                    fontSize: 9,
-                    textAlign: "center",
-                  }}
-                >
-                  Crest
-                </Text>
-              </View>
+              {/* 40 x 50 display of the same 800 × 1000 crest. */}
+              {kingdom.artwork?.emblem ? (
+  <Image
+    source={{ uri: kingdom.artwork.emblem }}
+    style={{
+      width: 40,
+      height: 50,
+      flexShrink: 0,
+      borderRadius: 6,
+      marginRight: 9,
+      resizeMode: "contain",
+    }}
+  />
+) : (
+  <View
+    style={{
+      width: 40,
+      height: 50,
+      flexShrink: 0,
+      backgroundColor: "#111827",
+      borderColor: "#4b5563",
+      borderWidth: 1,
+      borderRadius: 6,
+      alignItems: "center",
+      justifyContent: "center",
+      marginRight: 9,
+    }}
+  >
+    <Text
+      style={{
+        color: "#6b7280",
+        fontSize: 9,
+        textAlign: "center",
+      }}
+    >
+      Crest
+    </Text>
+  </View>
+)}
 
               <View
                 style={{
@@ -508,32 +538,46 @@ export default function KingdomOath({ onContinue = () => {} }) {
             }}
           >
             {/* Reserved space for the kingdom's future crest or portrait. */}
-            <View
-              style={{
-                width: 90,
-                aspectRatio: 0.8,
-                flexShrink: 0,
-                backgroundColor: "#0f1722",
-                borderColor: "#4b5563",
-                borderWidth: 1,
-                borderRadius: 10,
-                alignItems: "center",
-                justifyContent: "center",
-                marginRight: 14,
-              }}
-            >
-              <Text
-                style={{
-                  color: "#6b7280",
-                  fontSize: 12,
-                  lineHeight: 16,
-                  textAlign: "center",
-                  paddingHorizontal: 5,
-                }}
-              >
-                Kingdom{"\n"}Crest
-              </Text>
-            </View>
+            {selectedKingdom.artwork?.crest ? (
+  <Image
+    source={{ uri: selectedKingdom.artwork.crest }}
+    style={{
+      width: 90,
+      aspectRatio: 0.8,
+      flexShrink: 0,
+      borderRadius: 10,
+      marginRight: 14,
+      resizeMode: "contain",
+    }}
+  />
+) : (
+  <View
+    style={{
+      width: 90,
+      aspectRatio: 0.8,
+      flexShrink: 0,
+      backgroundColor: "#0f1722",
+      borderColor: "#4b5563",
+      borderWidth: 1,
+      borderRadius: 10,
+      alignItems: "center",
+      justifyContent: "center",
+      marginRight: 14,
+    }}
+  >
+    <Text
+      style={{
+        color: "#6b7280",
+        fontSize: 12,
+        lineHeight: 16,
+        textAlign: "center",
+        paddingHorizontal: 5,
+      }}
+    >
+      Kingdom{"\n"}Crest
+    </Text>
+  </View>
+)}
 
             <View
               style={{
@@ -801,32 +845,46 @@ export default function KingdomOath({ onContinue = () => {} }) {
                 }}
               >
                 {/* Reserved space for a future crest or portrait image. */}
-                <View
-                  style={{
-                    width: useSingleColumn ? 86 : 72,
-                    aspectRatio: 0.8,
-                    flexShrink: 0,
-                    backgroundColor: "#111827",
-                    borderColor: "#4b5563",
-                    borderWidth: 1,
-                    borderRadius: 10,
-                    alignItems: "center",
-                    justifyContent: "center",
-                    marginRight: 12,
-                  }}
-                >
-                  <Text
-                    style={{
-                      color: "#6b7280",
-                      fontSize: 11,
-                      lineHeight: 15,
-                      textAlign: "center",
-                      paddingHorizontal: 4,
-                    }}
-                  >
-                    Kingdom{"\n"}Crest
-                  </Text>
-                </View>
+                {kingdom.artwork?.crest ? (
+  <Image
+    source={{ uri: kingdom.artwork.crest }}
+    style={{
+      width: useSingleColumn ? 86 : 72,
+      aspectRatio: 0.8,
+      flexShrink: 0,
+      borderRadius: 10,
+      marginRight: 12,
+      resizeMode: "contain",
+    }}
+  />
+) : (
+  <View
+    style={{
+      width: useSingleColumn ? 86 : 72,
+      aspectRatio: 0.8,
+      flexShrink: 0,
+      backgroundColor: "#111827",
+      borderColor: "#4b5563",
+      borderWidth: 1,
+      borderRadius: 10,
+      alignItems: "center",
+      justifyContent: "center",
+      marginRight: 12,
+    }}
+  >
+    <Text
+      style={{
+        color: "#6b7280",
+        fontSize: 11,
+        lineHeight: 15,
+        textAlign: "center",
+        paddingHorizontal: 4,
+      }}
+    >
+      Kingdom{"\n"}Crest
+    </Text>
+  </View>
+)}
 
                 <View
                   style={{
