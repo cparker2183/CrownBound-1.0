@@ -259,7 +259,7 @@ export const GameProvider = ({ children }) => {
     musicVolume,
     sfxVolume,
   ]);
-  
+
   const addToLog = (message, notable = false) => {
     if (!message) return;
     const entry = { text: String(message), timestamp: now(), notable: !!notable };
@@ -564,10 +564,22 @@ export const GameProvider = ({ children }) => {
       next.level += 1;
       next.xpToNextLevel = Math.max(10, Math.floor(next.xpToNextLevel * 1.5));
       next.maxHp += 20;
-      next.hp = next.maxHp; // heal to full on level up
-      addCrowns(1, "levelup"); // award 1 crown on level up
-      addNotableLog("LEVEL_UP", `${next.name} reached Level ${next.level}!`);
-      leveled = true;
+next.hp = next.maxHp; // heal to full on level up
+
+if (next.level % 10 === 0) {
+  addCrowns(1, "level milestone");
+  addNotableLog(
+    "LEVEL_MILESTONE",
+    `${next.name} reached Level ${next.level} and earned 1 Crown!`
+  );
+}
+
+addNotableLog(
+  "LEVEL_UP",
+  `${next.name} reached Level ${next.level}!`
+);
+
+leveled = true;
     }
     if (leveled) {
       addFloatingText("LEVEL UP!", "level");

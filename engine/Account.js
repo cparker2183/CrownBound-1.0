@@ -6,7 +6,6 @@ export function createDefaultAccount() {
   return {
     kingdomId: null,
     crowns: 0,
-    legacy: "Unaffiliated",
     kingdomPromptSeen: false,
     rewardedAdsToday: 0,
     rewardedAdsDate: null,
@@ -21,9 +20,11 @@ export function loadAccount() {
       return createDefaultAccount();
     }
 
+    const parsed = JSON.parse(raw);
+
     return {
       ...createDefaultAccount(),
-      ...JSON.parse(raw),
+      ...parsed,
     };
   } catch (error) {
     console.warn("Failed to load account:", error);
