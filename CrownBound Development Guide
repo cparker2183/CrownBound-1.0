@@ -537,3 +537,28 @@ Add CrownBound development guide
 | Canonical Kingdom definitions | `engine/Kingdoms.js` |
 | Current public behavior | Deployed live build |
 | Temporary uncommitted work | Local project |
+
+
+Refactor GameContext.js
+
+GameContext.js has grown beyond a comfortable size.
+Separate it into focused modules without changing gameplay behavior.
+Suggested split:
+Character state
+Combat & exploration
+Economy (Gold/Crowns)
+Inventory & equipment
+Kingdoms
+Audio
+Save/load
+This is a maintenance task only and should not change gameplay.
+
+
+Kingdom Standing progression
+
+Kingdom Standing belongs to the permanent account.
+“Member” is the initial Standing after swearing a Kingdom Oath.
+Standing will later advance through the established rank list.
+Stats and Kingdom pages must read the Standing from the same account data.
+Until progression is implemented, the UI may display the temporary default Standing of “Member.”
+

@@ -219,7 +219,7 @@ export default function Settings({
           onClick={() => {
             const confirmed = window.confirm(
               "Reset your character?\n\n" +
-                "This permanently deletes your level, equipment, inventory, gold, crowns, and activity history."
+                "This permanently deletes your level, equipment, inventory, gold, and activity history."
             );
 
             if (!confirmed) {

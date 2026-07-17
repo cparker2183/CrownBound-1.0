@@ -229,7 +229,7 @@ export default function Stats() {
                   fontSize: 10,
                 }}
               >
-                Standing: Member · Crowns: {p.crowns}
+                Standing: Member · Crowns: {account?.crowns || 0}
               </Text>
             </View>
           </>

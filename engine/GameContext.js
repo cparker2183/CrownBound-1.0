@@ -34,6 +34,8 @@ const createStartingPlayer = (name = "Hero") => ({
   xp: 0,
   xpToNextLevel: 100,
   gold: 10,
+
+  // Temporary compatibility value while Crowns move to the account.
   crowns: 0,
 });
 
@@ -100,19 +102,34 @@ export const GameProvider = ({ children }) => {
     audioInitialized.current = true;
   }
 
-  // Load character and account data.
+    // Load character and account data.
   const saved = loadSavedSnapshot();
   const savedAccount = loadAccount();
 
-  const [account, setAccount] = useState(savedAccount);
+  // Preserve the larger Crown balance during the transition from
+  // character-owned Crowns to permanent account-owned Crowns.
+  const migratedAccount = {
+    ...savedAccount,
+    crowns: Math.max(
+      Number.isFinite(savedAccount?.crowns)
+        ? Math.max(0, Math.floor(savedAccount.crowns))
+        : 0,
+      Number.isFinite(saved?.player?.crowns)
+        ? Math.max(0, Math.floor(saved.player.crowns))
+        : 0
+    ),
+  };
+
+  const [account, setAccount] = useState(migratedAccount);
 
   const [hasCharacter, setHasCharacter] = useState(
+
     Boolean(saved?.player?.name)
   );
 
   const isResettingRef = useRef(false);
 
-  // Core states
+    // Core states
   const [player, setPlayerRaw] = useState(normalizePlayer(saved?.player));
   const [inventory, setInventory] = useState(Array.isArray(saved?.inventory) ? saved.inventory : []);
   const [equipment, setEquipment] = useState(saved?.equipment || { weapon: null, armor: null, head: null, body: null, boots: null });
@@ -456,13 +473,20 @@ export const GameProvider = ({ children }) => {
 
   // ---------- crowns & economy ----------
   const addCrowns = (amount, note = "gameplay") => {
-    if (!amount || amount <= 0) return 0;
-    const delta = Math.floor(amount);
-    setPlayer((p) => normalizePlayer({ ...p, crowns: (p.crowns || 0) + delta }));
-    addToLog(`👑 +${delta} Crown(s) (${note}).`, true);
-    addFloatingText(`+${delta} Crown`, "gold");
-    return delta;
-  };
+  if (!amount || amount <= 0) return 0;
+
+  const delta = Math.floor(amount);
+
+  setAccount((previousAccount) => ({
+    ...previousAccount,
+    crowns: (previousAccount.crowns || 0) + delta,
+  }));
+
+  addToLog(`👑 +${delta} Crown(s) (${note}).`, true);
+  addFloatingText(`+${delta} Crown`, "gold");
+
+  return delta;
+};
 
   // awarding crowns with ad-specific caps
   const awardCrowns = (amount, source = "gameplay") => {
