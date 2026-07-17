@@ -285,14 +285,14 @@ export default function KingdomOath({ onContinue = () => {} }) {
                 Standing
               </Text>
 
-              <Text
+                            <Text
                 style={{
                   color: "#ffffff",
                   fontSize: 16,
                   fontWeight: "bold",
                 }}
               >
-                Member
+                {account?.standing || "Member"}
               </Text>
             </View>
 

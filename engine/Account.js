@@ -6,6 +6,7 @@ export function createDefaultAccount() {
   return {
     kingdomId: null,
     crowns: 0,
+    standing: "Member",
     kingdomPromptSeen: false,
     rewardedAdsToday: 0,
     rewardedAdsDate: null,

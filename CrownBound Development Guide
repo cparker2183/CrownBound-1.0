@@ -554,23 +554,28 @@ Save/load
 This is a maintenance task only and should not change gameplay.
 
 
-Kingdom Standing progression
+### Kingdom Standing Progression
 
-Kingdom Standing belongs to the permanent account.
-“Member” is the initial Standing after swearing a Kingdom Oath.
-Standing will later advance through the established rank list.
-Stats and Kingdom pages must read the Standing from the same account data.
-Until progression is implemented, the UI may display the temporary default Standing of “Member.”
+- Kingdom Standing is permanent account data.
+- New Kingdom members begin at the Standing of `Member`.
+- Stats and Kingdom pages must always read Standing from `account.standing`.
+- Standing progression is planned but not yet implemented.
+- The final Standing names, Crown thresholds, promotion rules, and player notifications must be documented before coding begins.
+- Standing must never decrease when a character is reset.
 
 
 ### Permanent Crowns
 
-Crowns are permanent account-wide progress.
-
+- Crowns belong to the permanent account.
 - Crowns persist across character resets and new characters.
 - Crowns are never spent, converted, exchanged, consumed, or reduced.
-- Crowns represent lifetime support and contribution to a Kingdom.
-- Crowns may be earned through gameplay.
+- Crowns may increase through gameplay.
 - Players will eventually be able to earn Crowns by Supporting CrownBound through rewarded advertisements.
 - The Supporting CrownBound rewarded-ad system is planned but is not yet implemented.
-- Kingdom Standing will eventually use permanent account data rather than hardcoded text.
+- Stats and Kingdom pages must display the same account Crown total.
+
+### Technical Debt
+
+- Refactor `engine/GameContext.js` into smaller focused modules.
+- This refactor must preserve existing gameplay behavior.
+

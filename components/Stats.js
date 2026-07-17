@@ -253,7 +253,7 @@ export default function Stats() {
           fontWeight: "600",
         }}
       >
-        Member
+        {account?.standing || "Member"}
       </Text>
     </View>
 
