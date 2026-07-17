@@ -7,6 +7,7 @@ import {
   loadAccount,
   saveAccount,
 } from "./Account.js";
+import { isLaunchKingdomId } from "./Kingdoms.js";
 
 // --------------------------------------------------------------------
 // GameContext: central game state, actions, save/load, economy, ads, etc.
@@ -840,6 +841,33 @@ if (wasKnockedOut) {
     });
   };
 
+// ---------- Kingdom membership ----------
+const selectKingdom = (kingdomId) => {
+  if (!isLaunchKingdomId(kingdomId)) {
+    return {
+      success: false,
+      error: "That kingdom is not currently available.",
+    };
+  }
+
+  if (account.kingdomId) {
+    return {
+      success: false,
+      error: "Your Kingdom Oath has already been sworn.",
+    };
+  }
+
+  setAccount((previousAccount) => ({
+    ...previousAccount,
+    kingdomId,
+  }));
+
+  return {
+    success: true,
+    kingdomId,
+  };
+};
+
 // ---------- Character lifecycle ----------
 
 const createCharacter = (characterName) => {
@@ -953,6 +981,7 @@ const resetCharacter = () => {
   resetCharacter,
   account,
   setAccount,
+  selectKingdom,
 
   // state
     player,
