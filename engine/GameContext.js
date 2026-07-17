@@ -7,7 +7,11 @@ import {
   loadAccount,
   saveAccount,
 } from "./Account.js";
-import { isLaunchKingdomId } from "./Kingdoms.js";
+import {
+  isLaunchKingdomId,
+  getKingdomById,
+} from "./Kingdoms.js";
+import { getStandingForCrowns } from "./KingdomStandings.js";
 
 // --------------------------------------------------------------------
 // GameContext: central game state, actions, save/load, economy, ads, etc.
@@ -117,6 +121,9 @@ export const GameProvider = ({ children }) => {
   };
 
   const [account, setAccount] = useState(migratedAccount);
+  const previousStandingRef = useRef(
+  getStandingForCrowns(migratedAccount.crowns || 0).name
+);
 
   const [hasCharacter, setHasCharacter] = useState(
 
@@ -216,6 +223,35 @@ export const GameProvider = ({ children }) => {
   useEffect(() => {
     saveAccount(account);
   }, [account]);
+
+// Announce Kingdom Standing promotions whenever permanent Crowns
+// cross a Standing threshold.
+useEffect(() => {
+  const currentStanding = getStandingForCrowns(
+    account?.crowns || 0
+  ).name;
+
+  const previousStanding = previousStandingRef.current;
+
+  if (
+    account?.kingdomId &&
+    currentStanding !== previousStanding
+  ) {
+    const kingdom = getKingdomById(account.kingdomId);
+
+    addNotableLog(
+      "KINGDOM_PROMOTION",
+      `${kingdom?.name || "Your Kingdom"} recognizes your service. You now stand as ${currentStanding}.`
+    );
+
+    addFloatingText(
+      currentStanding,
+      "level"
+    );
+  }
+
+  previousStandingRef.current = currentStanding;
+}, [account?.crowns, account?.kingdomId]);
 
   // Save the current character snapshot before closing or refreshing.
   useEffect(() => {

@@ -628,3 +628,24 @@ Design goals:
 - Surpassing the current holder by only one Crown is not sufficient.
 - The exact succession margin, tie rules, inactivity rules, and transition ceremony will be designed when shared Kingdom rankings are implemented.
 - Until multiplayer Kingdom rankings exist, reaching 50,000 Crowns may display `Crownbound` locally for progression testing.
+
+
+### Future Feature — Kingdom Voice
+
+Each Kingdom will have its own unique voice and style of communication.
+
+Examples:
+
+- Asteria may speak of honor and duty.
+- Valoria may praise courage and valor.
+- Ebonreach may respect resolve and endurance.
+- Future Kingdoms should likewise reflect their defining values.
+
+Kingdom messages should be used for:
+- Standing promotions
+- Special events
+- Seasonal celebrations
+- Kingdom announcements
+- Future quests and story content
+
+The wording should reinforce the identity and culture of each Kingdom while remaining concise and respectful.
