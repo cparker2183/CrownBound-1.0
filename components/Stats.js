@@ -8,6 +8,7 @@ import {
 } from "react-native-web";
 import { useGame } from "../engine/GameContext";
 import { BannerAd } from "../engine/Ads";
+import { getKingdomById } from "../engine/Kingdoms.js";
 
 const COLOR_BY_TYPE = {
   damage: "#ef4444",
@@ -72,6 +73,7 @@ function FloatingEntry({ text, type = "default", index }) {
 export default function Stats() {
   const {
     player,
+    account,
     equipment,
     activityLog,
     floatingText,
@@ -92,6 +94,8 @@ export default function Stats() {
     gold: 0,
     crowns: 0,
   };
+
+  const kingdom = getKingdomById(account?.kingdomId);
 
   const hpPercent = Math.min(
     100,
@@ -152,16 +156,117 @@ export default function Stats() {
           ))}
       </View>
 
-      {/* Core Stats */}
+            {/* Kingdom Identity and Core Stats */}
       <View
         style={{
+          height: 50,
           flexDirection: "row",
-          justifyContent: "space-between",
+          alignItems: "center",
           marginBottom: 2,
         }}
       >
-        <View style={{ flex: 1 }}>
-          <Text style={{ color: "#9ca3af", fontSize: 12 }}>Level</Text>
+        {kingdom ? (
+          <>
+            {/* Placeholder for future 800 × 1000 Kingdom crest artwork */}
+            <View
+              style={{
+                width: 40,
+                height: 50,
+                flexShrink: 0,
+                backgroundColor: "#111827",
+                borderWidth: 1,
+                borderColor: "#475569",
+                borderRadius: 6,
+                alignItems: "center",
+                justifyContent: "center",
+                marginRight: 7,
+              }}
+            >
+              <Text
+                style={{
+                  color: "#6b7280",
+                  fontSize: 8,
+                  lineHeight: 10,
+                  textAlign: "center",
+                }}
+              >
+                Kingdom{"\n"}Crest
+              </Text>
+            </View>
+
+            <View
+              style={{
+                flex: 1,
+                minWidth: 0,
+                justifyContent: "center",
+              }}
+            >
+              <Text
+                numberOfLines={1}
+                style={{
+                  color: "#f5c451",
+                  fontSize: 13,
+                  fontWeight: "700",
+                }}
+              >
+                {kingdom.name}
+              </Text>
+
+              <Text
+                numberOfLines={1}
+                style={{
+                  color: "#9ca3af",
+                  fontSize: 10,
+                }}
+              >
+                {kingdom.primaryValue}
+              </Text>
+
+              <Text
+                numberOfLines={1}
+                style={{
+                  color: "#cbd5e1",
+                  fontSize: 10,
+                }}
+              >
+                Standing: Member · Crowns: {p.crowns}
+              </Text>
+            </View>
+          </>
+        ) : (
+          <View
+            style={{
+              flex: 1,
+              justifyContent: "center",
+            }}
+          >
+            <Text
+  style={{
+    color: "#9ca3af",
+    fontSize: 10,
+    fontStyle: "italic",
+  }}
+>
+  Your journey is only beginning...
+</Text>
+          </View>
+        )}
+
+        <View
+          style={{
+            width: 52,
+            marginLeft: 6,
+          }}
+        >
+          <Text
+            style={{
+              color: "#9ca3af",
+              fontSize: 10,
+            }}
+          >
+            Level
+          </Text>
+
           <Text
             style={{
               color: "#ffffff",
@@ -173,8 +278,20 @@ export default function Stats() {
           </Text>
         </View>
 
-        <View style={{ flex: 1 }}>
-          <Text style={{ color: "#9ca3af", fontSize: 12 }}>Gold</Text>
+        <View
+          style={{
+            width: 58,
+          }}
+        >
+          <Text
+            style={{
+              color: "#9ca3af",
+              fontSize: 10,
+            }}
+          >
+            Gold
+          </Text>
+
           <Text
             style={{
               color: "#ffffff",
@@ -183,19 +300,6 @@ export default function Stats() {
             }}
           >
             {p.gold}
-          </Text>
-        </View>
-
-        <View style={{ flex: 1 }}>
-          <Text style={{ color: "#9ca3af", fontSize: 12 }}>Crowns</Text>
-          <Text
-            style={{
-              color: "#ffffff",
-              fontSize: 12,
-              fontWeight: "600",
-            }}
-          >
-            {p.crowns}
           </Text>
         </View>
       </View>

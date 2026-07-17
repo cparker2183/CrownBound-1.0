@@ -117,7 +117,7 @@ export default function KingdomOath({ onContinue = () => {} }) {
               marginBottom: 8,
             }}
           >
-            You Stand with {standingKingdom.name}
+            Standing with {standingKingdom.name}
           </Text>
 
           <Text
