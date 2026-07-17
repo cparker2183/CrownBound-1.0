@@ -195,43 +195,92 @@ export default function Stats() {
             </View>
 
             <View
-              style={{
-                flex: 1,
-                minWidth: 0,
-                justifyContent: "center",
-              }}
-            >
-              <Text
-                numberOfLines={1}
-                style={{
-                  color: "#f5c451",
-                  fontSize: 13,
-                  fontWeight: "700",
-                }}
-              >
-                {kingdom.name}
-              </Text>
+  style={{
+    flex: 1,
+    minWidth: 0,
+    height: 50,
+    justifyContent: "center",
+  }}
+>
+  <Text
+    numberOfLines={1}
+    style={{
+      color: "#f5c451",
+      fontSize: 12,
+      fontWeight: "700",
+    }}
+  >
+    {kingdom.name}
+  </Text>
 
-              <Text
-                numberOfLines={1}
-                style={{
-                  color: "#9ca3af",
-                  fontSize: 10,
-                }}
-              >
-                {kingdom.primaryValue}
-              </Text>
+  <Text
+    numberOfLines={1}
+    style={{
+      color: "#9ca3af",
+      fontSize: 9,
+      marginBottom: 2,
+    }}
+  >
+    {kingdom.primaryValue}
+  </Text>
 
-              <Text
-                numberOfLines={1}
-                style={{
-                  color: "#cbd5e1",
-                  fontSize: 10,
-                }}
-              >
-                Standing: Member · Crowns: {account?.crowns || 0}
-              </Text>
-            </View>
+  <View
+    style={{
+      flexDirection: "row",
+      alignItems: "center",
+    }}
+  >
+    <View
+      style={{
+        marginRight: 14,
+      }}
+    >
+      <Text
+        style={{
+          color: "#9ca3af",
+          fontSize: 8,
+          lineHeight: 9,
+        }}
+      >
+        Standing
+      </Text>
+
+      <Text
+        style={{
+          color: "#ffffff",
+          fontSize: 10,
+          lineHeight: 11,
+          fontWeight: "600",
+        }}
+      >
+        Member
+      </Text>
+    </View>
+
+    <View>
+      <Text
+        style={{
+          color: "#9ca3af",
+          fontSize: 8,
+          lineHeight: 9,
+        }}
+      >
+        Crowns
+      </Text>
+
+      <Text
+        style={{
+          color: "#ffffff",
+          fontSize: 10,
+          lineHeight: 11,
+          fontWeight: "600",
+        }}
+      >
+        {account?.crowns || 0}
+      </Text>
+    </View>
+  </View>
+</View>
           </>
         ) : (
           <View

@@ -32,8 +32,6 @@ const createStartingPlayer = (name = "Hero") => ({
   xp: 0,
   xpToNextLevel: 100,
   gold: 10,
-
-  // Temporary compatibility value while Crowns move to the account.
   crowns: 0,
 });
 
