@@ -2,6 +2,7 @@
 import React from "react";
 import { View, Text } from "react-native-web";
 import { useGame } from "../engine/GameContext";
+import { createDefaultAccount } from "../engine/Account.js";
 import { DISPLAY_VERSION } from "../config/version";
 
 export default function Settings({
@@ -9,13 +10,14 @@ export default function Settings({
   onOpenHowToPlay = () => {},
 }) {
   const {
-    musicVolume,
-    setMusicVolume,
-    sfxVolume,
-    setSfxVolume,
-    playNextTestEffect,
-    resetCharacter,
-  } = useGame();
+  musicVolume,
+  setMusicVolume,
+  sfxVolume,
+  setSfxVolume,
+  playNextTestEffect,
+  resetCharacter,
+  setAccount,
+} = useGame();
 
   return (
     <View
@@ -249,6 +251,70 @@ export default function Settings({
           }}
         >
           Permanently erase this character and return to character creation.
+        </Text>
+      </View>
+
+            {/* Delete Account */}
+      <View
+        style={{
+          marginTop: 12,
+          backgroundColor: "#111827",
+          borderWidth: 2,
+          borderColor: "#991b1b",
+          borderRadius: 8,
+          padding: 12,
+        }}
+      >
+        <Text
+          style={{
+            color: "#fca5a5",
+            fontWeight: "bold",
+            fontSize: 17,
+            marginBottom: 10,
+          }}
+        >
+          Delete Account
+        </Text>
+
+        <button
+          onClick={() => {
+            const confirmed = window.confirm(
+              "Delete your CrownBound account?\n\n" +
+                "This permanently deletes your character, level, equipment, inventory, gold, Crowns, Kingdom, and all locally saved progress.\n\n" +
+                "This cannot be undone."
+            );
+
+            if (!confirmed) {
+              return;
+            }
+
+            resetCharacter();
+            setAccount(createDefaultAccount());
+            onReturnToIntro();
+          }}
+          style={{
+            width: "100%",
+            padding: 10,
+            borderRadius: 8,
+            background: "#450a0a",
+            color: "#ffffff",
+            border: "2px solid #dc2626",
+            fontWeight: "bold",
+            cursor: "pointer",
+          }}
+        >
+          Delete Account
+        </button>
+
+        <Text
+          style={{
+            color: "#9ca3af",
+            marginTop: 10,
+            lineHeight: 20,
+          }}
+        >
+          Permanently erase all character and account data, including your
+          Kingdom and Crowns.
         </Text>
       </View>
     </View>

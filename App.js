@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -7,6 +7,7 @@ import {
 } from "react-native-web";
 
 import { useGame } from "./engine/GameContext.js";
+import { KINGDOM_UNLOCK_LEVEL } from "./engine/Kingdoms.js";
 
 // Components
 import IntroScreen from "./components/IntroScreen.js";
@@ -19,6 +20,7 @@ import Story from "./components/Story.js";
 import Referral from "./components/Referral.js";
 import Settings from "./components/Settings.js";
 import Wallet from "./components/Wallet.js";
+import KingdomOath from "./components/KingdomOath.js";
 
 const APP_VERSION = "v0.9.2";
 
@@ -27,6 +29,8 @@ export default function App() {
     player,
     hasCharacter,
     createCharacter,
+    account,
+    setAccount,
   } = useGame();
 
   const [tab, setTab] = useState("Stats");
@@ -35,11 +39,31 @@ export default function App() {
   const [hasStartedThisLaunch, setHasStartedThisLaunch] =
     useState(false);
   const [showHowToPlay, setShowHowToPlay] = useState(false);
-  const [tutorialMode, setTutorialMode] = useState(false);  
+  const [tutorialMode, setTutorialMode] = useState(false);
+
+  const kingdomAccessAvailable = Boolean(
+    account?.kingdomPromptSeen || account?.kingdomId
+  );
+
+  const shouldShowKingdomInvitation =
+    hasStartedThisLaunch &&
+    (player?.level || 0) >= KINGDOM_UNLOCK_LEVEL &&
+    !account?.kingdomPromptSeen &&
+    !account?.kingdomId;
+
+  useEffect(() => {
+    if (
+      shouldShowKingdomInvitation &&
+      tab !== "Kingdom"
+    ) {
+      setTab("Kingdom");
+    }
+  }, [shouldShowKingdomInvitation, tab]);
 
   const tabs = [
     "Stats",
     "Inventory",
+    ...(kingdomAccessAvailable ? ["Kingdom"] : []),
     "Settings",
   ];
 
@@ -63,20 +87,34 @@ export default function App() {
       case "Referral":
         return <Referral />;
 
+      case "Kingdom":
+        return (
+          <KingdomOath
+            onContinue={() => {
+              setAccount((currentAccount) => ({
+                ...currentAccount,
+                kingdomPromptSeen: true,
+              }));
+
+              setTab("Stats");
+            }}
+          />
+        );
+
       case "Settings":
-  return (
-    <Settings
-      appVersion={APP_VERSION}
-      onReturnToIntro={() => {
-        setTab("Stats");
-        setHasStartedThisLaunch(false);
-      }}
-      onOpenHowToPlay={() => {
-        setTutorialMode(false);
-        setShowHowToPlay(true);
-      }}
-    />
-  );
+        return (
+          <Settings
+            appVersion={APP_VERSION}
+            onReturnToIntro={() => {
+              setTab("Stats");
+              setHasStartedThisLaunch(false);
+            }}
+            onOpenHowToPlay={() => {
+              setTutorialMode(false);
+              setShowHowToPlay(true);
+            }}
+          />
+        );
 
       case "Wallet":
         return <Wallet />;
@@ -90,45 +128,49 @@ export default function App() {
     }
   };
 
-if (showHowToPlay) {
-  return (
-    <HowToPlay
-      buttonText={tutorialMode ? "Begin Adventure" : "Return to Game"}
-      onClose={() => {
-        setShowHowToPlay(false);
-
-        if (tutorialMode) {
-          setTutorialMode(false);
-          setTab("Stats");
-          setHasStartedThisLaunch(true);
+  if (showHowToPlay) {
+    return (
+      <HowToPlay
+        buttonText={
+          tutorialMode
+            ? "Begin Adventure"
+            : "Return to Game"
         }
-      }}
-    />
-  );
-}
-  
+        onClose={() => {
+          setShowHowToPlay(false);
+
+          if (tutorialMode) {
+            setTutorialMode(false);
+            setTab("Stats");
+            setHasStartedThisLaunch(true);
+          }
+        }}
+      />
+    );
+  }
+
   if (!hasStartedThisLaunch) {
     return (
       <IntroScreen
-  hasCharacter={hasCharacter}
-  playerName={player?.name}
-  playerLevel={player?.level}
-  appVersion={APP_VERSION}
-  onCreateCharacter={(characterName) => {
-    const result = createCharacter(characterName);
+        hasCharacter={hasCharacter}
+        playerName={player?.name}
+        playerLevel={player?.level}
+        appVersion={APP_VERSION}
+        onCreateCharacter={(characterName) => {
+          const result = createCharacter(characterName);
 
-    if (result?.success) {
-      setTutorialMode(true);
-      setShowHowToPlay(true);
-    }
+          if (result?.success) {
+            setTutorialMode(true);
+            setShowHowToPlay(true);
+          }
 
-    return result;
-  }}
-  onStartPlaying={() => {
-    setTab("Stats");
-    setHasStartedThisLaunch(true);
-  }}
-/>
+          return result;
+        }}
+        onStartPlaying={() => {
+          setTab("Stats");
+          setHasStartedThisLaunch(true);
+        }}
+      />
     );
   }
 
@@ -144,12 +186,16 @@ if (showHowToPlay) {
             ]}
             onPress={() => setTab(tabName)}
           >
-            <Text style={styles.tabText}>{tabName}</Text>
+            <Text style={styles.tabText}>
+              {tabName}
+            </Text>
           </TouchableOpacity>
         ))}
       </View>
 
-      <View style={styles.content}>{renderTab()}</View>
+      <View style={styles.content}>
+        {renderTab()}
+      </View>
     </View>
   );
 }
@@ -170,21 +216,18 @@ const styles = StyleSheet.create({
   },
 
   tabRow: {
-  flexDirection: "row",
-  flexWrap: "wrap",
-  alignSelf: "center",
-  justifyContent: "center",
-
-  backgroundColor: "#111827",
-
-  paddingVertical: 8,
-  paddingHorizontal: 12,
-  marginBottom: 8,
-
-  borderWidth: 2,
-  borderColor: "#475569",
-  borderRadius: 10,
-},
+    flexDirection: "row",
+    flexWrap: "wrap",
+    alignSelf: "center",
+    justifyContent: "center",
+    backgroundColor: "#111827",
+    paddingVertical: 8,
+    paddingHorizontal: 12,
+    marginBottom: 8,
+    borderWidth: 2,
+    borderColor: "#475569",
+    borderRadius: 10,
+  },
 
   tabButton: {
     paddingHorizontal: 10,
