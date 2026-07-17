@@ -3,6 +3,10 @@ import React, { createContext, useContext, useEffect, useRef, useState } from "r
 import { Platform } from "./RNCompat.js";
 import { showRewardedAd, Banner } from "./Ads";
 import AudioManager from "./AudioManager.js";
+import {
+  loadAccount,
+  saveAccount,
+} from "./Account.js";
 
 // --------------------------------------------------------------------
 // GameContext: central game state, actions, save/load, economy, ads, etc.
@@ -90,18 +94,22 @@ export const GameProvider = ({ children }) => {
   // Initialize AudioManager ASAP
   const audioInitialized = useRef(false);
 
-if (!audioInitialized.current) {
+  if (!audioInitialized.current) {
     AudioManager.init();
     audioInitialized.current = true;
-}
+  }
 
-  // load snapshot (if any)
+  // Load character and account data.
   const saved = loadSavedSnapshot();
-  const [hasCharacter, setHasCharacter] = useState(
-  Boolean(saved?.player?.name)
-);
+  const savedAccount = loadAccount();
 
-const isResettingRef = useRef(false);
+  const [account, setAccount] = useState(savedAccount);
+
+  const [hasCharacter, setHasCharacter] = useState(
+    Boolean(saved?.player?.name)
+  );
+
+  const isResettingRef = useRef(false);
 
   // Core states
   const [player, setPlayerRaw] = useState(normalizePlayer(saved?.player));
@@ -143,47 +151,14 @@ const isResettingRef = useRef(false);
     });
   };
 
-  // ---------- auto-save snapshot periodically ----------
+    // ---------- auto-save character snapshot periodically ----------
   useEffect(() => {
     const handler = setInterval(() => {
-  if (!hasCharacter || isResettingRef.current) {
-    return;
-  }
-
-  try {
-    const snapshot = {
-          player,
-          inventory,
-          equipment,
-          activityLog,
-          potionEffect,
-          crownsConvertedToday,
-          crownsFromAdsToday,
-          dailyResetTs,
-          adsWatchedToday,
-          // audio volumes come from AudioManager; but include values for portability
-          musicVolume: AudioManager.getMusicVolume ? AudioManager.getMusicVolume() : musicVolume,
-          sfxVolume: AudioManager.getSfxVolume ? AudioManager.getSfxVolume() : sfxVolume,
-          musicTrackIndex: 0,
-          hasCharacter,
-        };
-        saveSnapshotToStorage(snapshot);
-      } catch (e) {
-        console.warn("Periodic save failed", e);
+      if (!hasCharacter || isResettingRef.current) {
+        return;
       }
-    }, DEFAULT_SAVE_INTERVAL_MS);
 
-    return () => clearInterval(handler);
-  }, [player, inventory, equipment, activityLog, potionEffect, crownsConvertedToday, crownsFromAdsToday, dailyResetTs, adsWatchedToday, musicVolume, sfxVolume]);
-
-  // also save on unload
-  useEffect(() => {
-    const onBeforeUnload = () => {
-  if (!hasCharacter || isResettingRef.current) {
-    return;
-  }
-
-  try {
+      try {
         const snapshot = {
           player,
           inventory,
@@ -194,19 +169,97 @@ const isResettingRef = useRef(false);
           crownsFromAdsToday,
           dailyResetTs,
           adsWatchedToday,
-          musicVolume: AudioManager.getMusicVolume ? AudioManager.getMusicVolume() : musicVolume,
-          sfxVolume: AudioManager.getSfxVolume ? AudioManager.getSfxVolume() : sfxVolume,
+          musicVolume: AudioManager.getMusicVolume
+            ? AudioManager.getMusicVolume()
+            : musicVolume,
+          sfxVolume: AudioManager.getSfxVolume
+            ? AudioManager.getSfxVolume()
+            : sfxVolume,
           musicTrackIndex: 0,
           hasCharacter,
         };
-        saveSnapshotToStorage(snapshot);
-      } catch (e) {}
-    };
-    window.addEventListener("beforeunload", onBeforeUnload);
-    return () => window.removeEventListener("beforeunload", onBeforeUnload);
-  }, [player, inventory, equipment, activityLog, potionEffect, crownsConvertedToday, crownsFromAdsToday, dailyResetTs, adsWatchedToday, musicVolume, sfxVolume]);
 
-  // ---------- logging ----------
+        saveSnapshotToStorage(snapshot);
+      } catch (error) {
+        console.warn("Periodic character save failed:", error);
+      }
+    }, DEFAULT_SAVE_INTERVAL_MS);
+
+    return () => clearInterval(handler);
+  }, [
+    hasCharacter,
+    player,
+    inventory,
+    equipment,
+    activityLog,
+    potionEffect,
+    crownsConvertedToday,
+    crownsFromAdsToday,
+    dailyResetTs,
+    adsWatchedToday,
+    musicVolume,
+    sfxVolume,
+  ]);
+
+  // Save account independently whenever permanent account data changes.
+  useEffect(() => {
+    saveAccount(account);
+  }, [account]);
+
+  // Save the current character snapshot before closing or refreshing.
+  useEffect(() => {
+    const onBeforeUnload = () => {
+      if (!hasCharacter || isResettingRef.current) {
+        return;
+      }
+
+      try {
+        const snapshot = {
+          player,
+          inventory,
+          equipment,
+          activityLog,
+          potionEffect,
+          crownsConvertedToday,
+          crownsFromAdsToday,
+          dailyResetTs,
+          adsWatchedToday,
+          musicVolume: AudioManager.getMusicVolume
+            ? AudioManager.getMusicVolume()
+            : musicVolume,
+          sfxVolume: AudioManager.getSfxVolume
+            ? AudioManager.getSfxVolume()
+            : sfxVolume,
+          musicTrackIndex: 0,
+          hasCharacter,
+        };
+
+        saveSnapshotToStorage(snapshot);
+      } catch (error) {
+        console.warn("Final character save failed:", error);
+      }
+    };
+
+    window.addEventListener("beforeunload", onBeforeUnload);
+
+    return () => {
+      window.removeEventListener("beforeunload", onBeforeUnload);
+    };
+  }, [
+    hasCharacter,
+    player,
+    inventory,
+    equipment,
+    activityLog,
+    potionEffect,
+    crownsConvertedToday,
+    crownsFromAdsToday,
+    dailyResetTs,
+    adsWatchedToday,
+    musicVolume,
+    sfxVolume,
+  ]);
+  
   const addToLog = (message, notable = false) => {
     if (!message) return;
     const entry = { text: String(message), timestamp: now(), notable: !!notable };
@@ -886,6 +939,8 @@ const resetCharacter = () => {
   hasCharacter,
   createCharacter,
   resetCharacter,
+  account,
+  setAccount,
 
   // state
     player,
@@ -897,6 +952,7 @@ const resetCharacter = () => {
     activityLog,
     floatingText,
     potionEffect,
+    
 
     // actions
     fight,
