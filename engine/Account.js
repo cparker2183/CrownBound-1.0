@@ -1,4 +1,4 @@
-// src/engine/Account.js
+// engine/Account.js
 
 export const ACCOUNT_STORAGE_KEY = "crownbound_account_v1";
 
