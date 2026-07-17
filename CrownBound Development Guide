@@ -563,6 +563,31 @@ This is a maintenance task only and should not change gameplay.
 - The final Standing names, Crown thresholds, promotion rules, and player notifications must be documented before coding begins.
 - Standing must never decrease when a character is reset.
 
+### Kingdom Standing Progression
+
+Standing is determined by permanent account Crowns.
+
+| Standing | Required Crowns |
+|----------|----------------:|
+| Oathsworn | 0 |
+| Retainer | 100 |
+| Warden | 250 |
+| Banner Knight | 500 |
+| High Marshal | 1,000 |
+| Lord Protector | 2,500 |
+| High Steward | 5,000 |
+| Grand Regent | 10,000 |
+| Royal Regent | 25,000 |
+| Crownbound | 50,000 |
+
+Rules:
+
+- Standing belongs to the permanent account.
+- Standing never decreases.
+- Character resets never affect Standing.
+- Stats and Kingdom pages always display the same Standing.
+- Promotion ceremonies are planned but not yet implemented.
+
 
 ### Permanent Crowns
 
@@ -579,3 +604,27 @@ This is a maintenance task only and should not change gameplay.
 - Refactor `engine/GameContext.js` into smaller focused modules.
 - This refactor must preserve existing gameplay behavior.
 
+Future Feature — Kingdom Promotions
+
+When a player reaches a new Standing, a ceremonial promotion screen will appear. Promotions are permanent account milestones and celebrate the player's growing legacy within their Kingdom. No gameplay bonuses are required initially; the ceremony itself is the reward.
+
+### Future Feature — The Crownbound
+
+The title of **Crownbound** is unique within each Kingdom.
+
+Design goals:
+
+- Only one player per Kingdom may hold the title at a time.
+- Becoming Crownbound represents the highest honor beneath the reigning monarch.
+- If another player surpasses the current Crownbound according to the future competition rules, the title may transfer.
+- The exact succession, tie-breaking, inactivity, and challenge rules will be designed in a later phase.
+- The Crownbound should be recognized throughout the game with unique visual presentation and future gameplay privileges.
+
+
+### Future Feature — Crownbound Succession
+
+- Only one account may hold the title of `Crownbound` within each Kingdom.
+- A challenger must exceed the current Crownbound’s permanent Crown total by a meaningful succession margin.
+- Surpassing the current holder by only one Crown is not sufficient.
+- The exact succession margin, tie rules, inactivity rules, and transition ceremony will be designed when shared Kingdom rankings are implemented.
+- Until multiplayer Kingdom rankings exist, reaching 50,000 Crowns may display `Crownbound` locally for progression testing.

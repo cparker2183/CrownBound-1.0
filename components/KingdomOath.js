@@ -13,6 +13,7 @@ import {
   getKingdomById,
 } from "../engine/Kingdoms.js";
 import { useGame } from "../engine/GameContext.js";
+import { getStandingForCrowns } from "../engine/KingdomStandings.js";
 
 export default function KingdomOath({ onContinue = () => {} }) {
   const { width } = useWindowDimensions();
@@ -34,6 +35,7 @@ export default function KingdomOath({ onContinue = () => {} }) {
   const accountKingdom = getKingdomById(account?.kingdomId);
 
   const standingKingdom = welcomedKingdom || accountKingdom;
+  const standing = getStandingForCrowns(account?.crowns || 0);
 
   const otherKingdoms = standingKingdom
   ? LAUNCH_KINGDOMS.filter(
@@ -292,7 +294,7 @@ export default function KingdomOath({ onContinue = () => {} }) {
                   fontWeight: "bold",
                 }}
               >
-                {account?.standing || "Member"}
+                {standing.name}
               </Text>
             </View>
 

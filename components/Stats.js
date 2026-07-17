@@ -9,6 +9,7 @@ import {
 import { useGame } from "../engine/GameContext";
 import { BannerAd } from "../engine/Ads";
 import { getKingdomById } from "../engine/Kingdoms.js";
+import { getStandingForCrowns } from "../engine/KingdomStandings.js";
 
 const COLOR_BY_TYPE = {
   damage: "#ef4444",
@@ -96,6 +97,7 @@ export default function Stats() {
   };
 
   const kingdom = getKingdomById(account?.kingdomId);
+  const standing = getStandingForCrowns(account?.crowns || 0);
 
   const hpPercent = Math.min(
     100,
@@ -253,7 +255,7 @@ export default function Stats() {
           fontWeight: "600",
         }}
       >
-        {account?.standing || "Member"}
+        {standing.name}
       </Text>
     </View>
 
