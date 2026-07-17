@@ -1,0 +1,539 @@
+# CrownBound Development Guide
+
+**Guide status:** Living development source of truth  
+**Current development version:** v0.10.0 — Kingdom Foundation  
+**Code source of truth:** `main` branch of `https://github.com/cparker2183/CrownBound-1.0`  
+**Live build:** `https://crownbound-8d3f1.web.app`  
+**Local project:** `C:\Projects\CrownBound`
+
+---
+
+## 1. Purpose of This Guide
+
+This document is the source of truth for CrownBound's development direction. It records agreed design decisions, gameplay rules, data ownership, interface standards, artwork specifications, completed milestones, testing overrides, and future plans.
+
+It does **not** replace the codebase.
+
+When this guide and the implementation differ:
+
+- The GitHub `main` branch is authoritative for what the game currently does.
+- This guide is authoritative for what CrownBound is intended to do and how future development should proceed.
+- Any intentional change to a rule or standard should update this guide after the code has been tested successfully.
+
+Avoid maintaining duplicate development plans in several files. Short-lived testing reminders may appear elsewhere, but this guide remains the permanent planning reference.
+
+---
+
+## 2. Development Philosophy
+
+Every feature should first answer:
+
+> **Why does this make the game more fun or meaningful for the player?**
+
+Always favor:
+
+- Small, well-tested changes.
+- One source of truth for each kind of information.
+- Clean, maintainable code.
+- One change, one test, one commit.
+- Committing after every successful milestone.
+- Hiding unfinished systems.
+- Never promising features that are not implemented.
+- Clear, step-by-step instructions during development.
+- Consistency before novelty.
+- Shipping a stable, understandable game before adding unnecessary polish.
+
+Do not add animation, visual effects, or complexity unless they clearly improve the player experience or solve a usability problem.
+
+---
+
+## 3. Current Product Direction
+
+CrownBound is primarily a **single-player progression game** with selective online community systems.
+
+The player should be able to enjoy the core game independently. Online systems may later add:
+
+- Kingdom identity and standing.
+- Guild participation.
+- Seasonal contribution.
+- Shared community goals.
+- Limited online rankings or recognition.
+
+Gold remains the primary gameplay currency.
+
+Crowns represent:
+
+- Reputation.
+- Contribution.
+- Standing.
+- Influence.
+
+Crowns are not intended to replace Gold.
+
+---
+
+## 4. Current Version and Milestone
+
+### v0.10.0 — Kingdom Foundation
+
+The current development goal is to create a complete, understandable Kingdom identity flow that is safe to place in players' hands before broader community systems exist.
+
+### Current immediate priorities
+
+1. Complete and stabilize the Kingdom membership experience.
+2. Add a compact chosen-Kingdom identity to the existing Stats layout without making the page wider or longer.
+3. Standardize Kingdom crest asset loading.
+4. Restore the production Kingdom unlock level before release.
+5. Continue testing account deletion, character reset, mobile layout, and persistence.
+
+---
+
+## 5. Completed Foundations
+
+### Interface and presentation
+
+- Intro redesign.
+- Character creation.
+- Returning-player welcome.
+- One-time How To Play presentation.
+- Shared version system.
+- Inventory redesign.
+- Stats redesign.
+- Settings redesign.
+- Hidden unfinished navigation tabs.
+- Hidden Wallet.
+- Consistent dark visual palette across major screens.
+- Responsive AdSense banner areas.
+
+### Gameplay and feedback
+
+- Core player progression.
+- Equipment and inventory.
+- Combat activity log.
+- Floating combat text.
+- Audio and sound-effect improvements.
+
+### Deployment and account controls
+
+- GitHub deployment workflow.
+- Firebase live deployment.
+- Reset Character.
+- Delete Account.
+- Character and Account data separation.
+
+### Kingdom Foundation
+
+- `engine/Kingdoms.js` as the canonical Kingdom data source.
+- Twelve canonical Kingdoms.
+- Four launch Kingdoms.
+- Eight future Kingdom definitions.
+- Central `KINGDOM_UNLOCK_LEVEL` constant.
+- Automatic Kingdom Oath prompt at the unlock level.
+- Kingdom navigation remains hidden until unlocked.
+- “Continue My Journey” permanently unlocks the Kingdom button.
+- Four Kingdom cards shown in a responsive two-column layout.
+- Portrait-oriented crest placeholders.
+- Permanent Kingdom selection stored on the Account.
+- Selection restricted to launch Kingdoms.
+- Selection may occur only once per Account.
+- Confirmation required before the permanent choice.
+- Player-facing confirmation language uses **Stand with [Kingdom]**.
+- Internal confirmation handler uses `confirmKingdomOath()`.
+- After selection, the Kingdom button opens a membership page rather than reopening selection.
+- Membership page shows the chosen Kingdom and minimal comparison information for the other launch Kingdoms.
+- Brief input lock protects the initial Oath screen from accidental autopilot presses.
+
+---
+
+## 6. Data Ownership Rules
+
+CrownBound separates **Character** progress from **Account** identity.
+
+### Character data
+
+Character data includes:
+
+- Level.
+- HP.
+- XP.
+- Gold.
+- Equipment.
+- Inventory.
+- Activity log.
+
+### Account data
+
+Account data includes:
+
+- Crowns.
+- Kingdom ID.
+- Kingdom prompt or unlock status.
+- Reward tracking.
+- Future account-level identity and community data.
+
+### Reset Character
+
+Reset Character removes only Character progress.
+
+It must preserve:
+
+- Crowns.
+- Kingdom membership.
+- Kingdom prompt/unlock state.
+- Other Account-level data.
+
+### Delete Account
+
+Delete Account removes both Account and Character data.
+
+It is the only normal action that removes a permanent Kingdom selection.
+
+### Kingdom storage
+
+- Store the permanent selection only in `account.kingdomId`.
+- Do not create a duplicate Kingdom membership field.
+- Use stable lowercase Kingdom IDs from `Kingdoms.js`.
+- Read display information through canonical Kingdom helpers rather than copying Kingdom names or values into Account data.
+
+---
+
+## 7. Canonical Launch Kingdoms
+
+### Avareth
+
+- Primary value: Honor.
+- Supporting values: Justice, Mercy.
+- Oath: “A true crown is earned by keeping one's word.”
+
+### Merithal
+
+- Primary value: Unity.
+- Supporting values: Compassion, Stewardship.
+- Oath: “No triumph is greater than one shared.”
+
+### Solvyr
+
+- Primary value: Wisdom.
+- Supporting values: Curiosity, Creativity.
+- Oath: “Knowledge becomes wisdom when it serves others.”
+
+### Haldren
+
+- Primary value: Resolve.
+- Supporting values: Hope, Liberty.
+- Oath: “When the path grows difficult, we endure.”
+
+The eight future Kingdoms remain hidden until their role and supporting values are ready for players.
+
+---
+
+## 8. Kingdom Player Experience Rules
+
+### Before Kingdom eligibility
+
+- The Kingdom navigation button remains hidden.
+- The game must not promise access to unfinished Kingdom systems.
+
+### At the unlock level
+
+- The Kingdom Oath appears automatically.
+- The first Oath screen briefly rejects presses to interrupt repetitive “autopilot” tapping.
+- The delay applies only when the initial Oath selection page first appears.
+- Confirmation interactions should remain responsive.
+
+### Before choosing
+
+The player can:
+
+- Read each Kingdom's primary value.
+- Read each Kingdom's supporting values.
+- Read each Kingdom's Oath.
+- Compare all four launch Kingdoms.
+- Continue the journey without choosing.
+
+### Confirming a choice
+
+- The card action is **Choose [Kingdom]**.
+- The permanent confirmation action is **Stand with [Kingdom]**.
+- A separate confirmation view must clearly explain permanence.
+- Returning to the Kingdom list must not save a selection.
+
+### After choosing
+
+- The player sees **You Stand with [Kingdom]**.
+- The Kingdom button always opens the membership page.
+- The selection interface is no longer shown.
+- No controls should imply that switching Kingdoms is possible.
+- Other launch Kingdoms may appear only as minimal comparison cards.
+
+### Membership-page information
+
+Current or planned membership information includes:
+
+- Kingdom crest.
+- Kingdom name.
+- Primary and supporting values.
+- Kingdom Oath.
+- Crowns.
+- Standing.
+- Seasonal contribution or status when implemented.
+
+Do not display fake ranks, live standing, or seasonal data as though those systems are active. Use honest placeholders such as **Coming Soon** only when useful and unobtrusive.
+
+---
+
+## 9. Visual Design Standards
+
+Consistency is the default. A screen should use different styling only for a clear functional reason.
+
+### Core palette
+
+| Purpose | Color |
+|---|---|
+| Main background | `#0f1722` or `#0b1220` |
+| Panel background | `#1e293b` |
+| Secondary dark panel | `#111827` |
+| Primary text | `#ffffff` |
+| Secondary text | `#9ca3af` |
+| Gold accent | `#f5c451` |
+| Blue action accent | `#2563eb` |
+| Red danger accent | `#7f1d1d` |
+
+### Interface character
+
+Prefer:
+
+- Dark blue backgrounds.
+- Slate panels.
+- Gold headings and identity accents.
+- Blue normal-action buttons.
+- Red only for destructive or dangerous actions.
+- Rounded cards.
+- Clear spacing.
+- High readability.
+- Restrained medieval-fantasy styling.
+
+Avoid:
+
+- Inconsistent palettes between screens.
+- Decorative effects that reduce readability.
+- Overly ornate fantasy borders.
+- Animation added only for spectacle.
+- Excessively long pages where existing information can be reorganized.
+
+### Responsive layout
+
+- Kingdom selection should normally remain two columns, including on standard phones.
+- It may fall back to one column only at unusually narrow widths.
+- Text must not overlap, clip, or force horizontal scrolling.
+- Future additions to Stats must fit within the existing page footprint unless a deliberate redesign is approved.
+
+---
+
+## 10. Kingdom Artwork Standards
+
+Use a single high-resolution portrait-oriented crest image for each Kingdom and scale it for all normal interface uses.
+
+### Master Kingdom crest
+
+- Canvas: **800 × 1000 pixels**.
+- Aspect ratio: **4:5**.
+- Preferred format: **PNG**.
+- Transparent background preferred when appropriate.
+- Keep important artwork away from the outer edge so rounded clipping does not remove details.
+
+### Standard display sizes
+
+| Use | Display size |
+|---|---:|
+| Kingdom selection card | `72 × 90` |
+| Confirmation view | `90 × 112.5` |
+| Membership page | `144 × 180` |
+| Compact Stats identity | `40 × 50` |
+| Minimal comparison card | `40 × 50` |
+
+The application should preserve the 4:5 ratio rather than maintaining separate image files for every display size.
+
+### Future optional artwork
+
+These are not current requirements:
+
+- Kingdom banner: suggested `1600 × 900` landscape image.
+- Kingdom icon: suggested `256 × 256` square image.
+
+Do not produce these assets until a real interface use has been approved.
+
+### Future asset integration goal
+
+Kingdom artwork should be easy to add by:
+
+1. Placing each approved file in one established assets directory.
+2. Mapping each stable Kingdom ID to its crest once.
+3. Reusing that mapping everywhere.
+4. Falling back safely to a placeholder when artwork is missing.
+
+Do not scatter separate image imports throughout several components.
+
+---
+
+## 11. Current Testing Override
+
+The Kingdom unlock level has temporarily been lowered to **Level 3** to speed development testing.
+
+### Production intent
+
+The intended release value is currently:
+
+```js
+export const KINGDOM_UNLOCK_LEVEL = 10;
+```
+
+### Before any public release candidate
+
+- Restore the unlock value from Level 3 to Level 10.
+- Test the automatic Oath trigger at Level 10.
+- Test the delayed initial choice buttons.
+- Test “Continue My Journey.”
+- Test permanent selection.
+- Test browser refresh persistence.
+- Test Reset Character persistence.
+- Test Delete Account removal.
+
+Do not allow the temporary Level 3 override to reach production accidentally.
+
+---
+
+## 12. Immediate Roadmap
+
+### Next milestone: compact Kingdom identity on Stats
+
+Goal:
+
+- Add a `40 × 50` crest and chosen Kingdom name to the existing Stats page.
+- Include only information that fits naturally in the current layout.
+- Do not make Stats wider or longer.
+- Avoid duplicating the full Kingdom membership page.
+
+Likely compact information:
+
+- Crest.
+- Kingdom name.
+- Primary value.
+- Possibly Crowns or Standing only if existing Stats space supports it cleanly.
+
+The current `Stats.js` layout must be inspected before deciding placement.
+
+### Following milestone: centralized crest assets
+
+- Define one canonical Kingdom crest mapping.
+- Replace placeholders without changing component layout.
+- Confirm graceful fallback for missing future artwork.
+
+### Release-oriented testing
+
+- Verify mobile and narrow-browser layouts.
+- Verify fresh account flow.
+- Verify returning account flow.
+- Verify character reset behavior.
+- Verify account deletion behavior.
+- Verify navigation visibility.
+- Verify version display.
+- Verify live deployment after approved milestones.
+
+---
+
+## 13. Saved Design Ideas for Later
+
+These ideas are preserved but are not current promises.
+
+### Explore events and moral choices
+
+Possible events:
+
+- Repair bridges.
+- Donate Gold.
+- Help villages.
+- Aid travelers.
+- Make choices that reflect Kingdom values.
+
+### Longer-term economy
+
+- Give Gold additional long-term purposes.
+- Add meaningful consequences for defeat.
+- Allow limited rewarded-ad Crown earnings.
+
+### Community systems
+
+- Seasonal Kingdom standing.
+- Guilds.
+- Kingdom population limits if technically or narratively useful.
+- Community contribution systems.
+- Transparent CrownBound revenue and allocation website.
+
+### Presentation ideas
+
+- Parchment reveal.
+- Kingdom banners appearing one at a time.
+- Kingdom artwork.
+- Subtle transitions.
+
+These presentation ideas should wait until core functionality and consistency are ready. The Kingdom page does not currently require animation.
+
+---
+
+## 14. Release Discipline
+
+Before describing CrownBound as having a feature:
+
+- The feature must exist in the current code.
+- The feature must be reachable by players as intended.
+- Persistence rules must be tested.
+- Mobile layout must be checked.
+- Unfinished dependencies must be hidden.
+- Player-facing wording must be accurate.
+
+Before deploying:
+
+1. Run the game locally.
+2. Test the changed feature.
+3. Check the browser console for errors.
+4. Verify related reset and persistence behavior.
+5. Commit the successful milestone.
+6. Push to GitHub `main`.
+7. Deploy only the committed version.
+8. Verify the live build.
+
+---
+
+## 15. Guide Maintenance Rules
+
+Update this guide when an approved change affects:
+
+- A permanent gameplay rule.
+- Account or Character data ownership.
+- A visual standard.
+- An artwork specification.
+- A release requirement.
+- The current milestone.
+- The near-term roadmap.
+- A future idea that must not be forgotten.
+
+Do not update the guide for every small implementation detail. Those belong in code, commit history, or code comments.
+
+Recommended commit message for the initial guide:
+
+```text
+Add CrownBound development guide
+```
+
+---
+
+## 16. Current Source-of-Truth Summary
+
+| Information | Source of truth |
+|---|---|
+| Current implementation | GitHub `main` branch |
+| Development goals and rules | `CROWNBOUND_DEVELOPMENT_GUIDE.md` |
+| Canonical Kingdom definitions | `engine/Kingdoms.js` |
+| Current public behavior | Deployed live build |
+| Temporary uncommitted work | Local project |
