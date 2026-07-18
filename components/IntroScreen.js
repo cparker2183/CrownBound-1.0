@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { DISPLAY_VERSION } from "../config/version";
+import { useGame } from "../engine/GameContext.js";
+
 import {
   View,
   Text,
@@ -17,6 +19,7 @@ export default function IntroScreen({
 }) {
   const [characterName, setCharacterName] = useState("");
   const [error, setError] = useState("");
+  const { startBackgroundMusic } = useGame();
 
   const handleCreateCharacter = () => {
     const cleanName = characterName.trim();
@@ -60,7 +63,10 @@ export default function IntroScreen({
 
 <TouchableOpacity
   style={styles.primaryButton}
-  onPress={onStartPlaying}
+  onPress={() => {
+    startBackgroundMusic();
+    onStartPlaying();
+  }}
 >
               <Text style={styles.primaryButtonText}>
                 Start Playing
@@ -78,6 +84,7 @@ export default function IntroScreen({
               onChangeText={(value) => {
                 setCharacterName(value);
                 setError("");
+                startBackgroundMusic();
               }}
               onSubmitEditing={handleCreateCharacter}
               placeholder="Enter character name"

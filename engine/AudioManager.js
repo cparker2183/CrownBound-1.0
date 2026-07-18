@@ -438,10 +438,7 @@ return false;
       return;
     }
 
-    if (!hasUserInteracted) {
-      // The first click, tap, or key press will start the music.
-      return;
-    }
+    
 
     isPlaying = true;
     playbackRunId += 1;
