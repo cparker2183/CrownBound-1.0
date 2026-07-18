@@ -155,11 +155,6 @@ export const GameProvider = ({ children }) => {
     : 80
 );
 
-const [audioError, setAudioError] = useState(
-  AudioManager.getLastAudioError
-    ? AudioManager.getLastAudioError()
-    : ""
-);
 
   // subscribe to AudioManager changes (keeps UI in sync)
   useEffect(() => {
@@ -168,7 +163,6 @@ const [audioError, setAudioError] = useState(
   ({ musicVolume: mv, sfxVolume: sv, lastAudioError }) => {
     setMusicVolumeLocal(mv);
     setSfxVolumeLocal(sv);
-    setAudioError(lastAudioError || "");
   }
 )
       : () => {};
@@ -1067,7 +1061,6 @@ const resetCharacter = () => {
     sfxVolume,
     setSfxVolume,
 
-    audioError,
 
     // events
     defeatBoss,

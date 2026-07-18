@@ -17,7 +17,6 @@ export default function Settings({
   playNextTestEffect,
   resetCharacter,
   setAccount,
-  audioError,
 
 } = useGame();
 
@@ -144,18 +143,6 @@ export default function Settings({
   between tracks.
 </Text>
 
-{audioError ? (
-  <Text
-    style={{
-      color: "#fca5a5",
-      marginTop: 10,
-      fontSize: 13,
-      lineHeight: 19,
-    }}
-  >
-    Audio Error: {audioError}
-  </Text>
-) : null}
       </View>
 
       {/* Game Guide */}
