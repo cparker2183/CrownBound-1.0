@@ -359,7 +359,7 @@ The application should preserve the 4:5 ratio rather than maintaining separate i
 These are not current requirements:
 
 - Kingdom banner: suggested `1600 × 900` landscape image.
-- Kingdom icon: suggested `256 × 256` square image.
+- Kingdom icon: suggested `128 x 128` square image.
 
 Do not produce these assets until a real interface use has been approved.
 
@@ -499,7 +499,7 @@ Before deploying:
 3. Check the browser console for errors.
 4. Verify related reset and persistence behavior.
 5. Commit the successful milestone.
-6. Push to GitHub `main`.
+6. Push to GitHub `main`. - git push origin main
 7. Deploy only the committed version.
 8. Verify the live build.
 
@@ -636,9 +636,9 @@ Each Kingdom will have its own unique voice and style of communication.
 
 Examples:
 
-- Asteria may speak of honor and duty.
-- Valoria may praise courage and valor.
-- Ebonreach may respect resolve and endurance.
+- Avareth may speak of honor and duty.
+- Velmora may praise courage and valor.
+- Haldren may respect resolve and endurance.
 - Future Kingdoms should likewise reflect their defining values.
 
 Kingdom messages should be used for:
@@ -761,6 +761,8 @@ Ambient music.
 
 The complete collection of twelve Kingdom crests should be finished before the artistic style is considered final.
 
+##### 17. Kingdom Core Values
+
 Kingdom	Primary	Supporting	Oath
 Avareth	Honor	Justice, Mercy	“A true crown is earned by keeping one's word.”
 Merithal	Unity	Compassion, Stewardship	“No triumph is greater than one shared.”
@@ -871,11 +873,6 @@ Decoration: Flowing vines, radiant flourishes, illuminated floral borders
 
 This creates a Kingdom that inspires optimism and renewal.
 
-1. Generate an 800 x 1000 image of a crest based on the information above.
-
-2. Create a matching emblem sized 512×512: The same crest adapted to a rounded-square frame with a border color that complements the shield, preserving the shield and composition.
-
-3. Create a 128×128 matching icon with the shield alone on a transparent background, with no parchment or frame.
 
 Corenth
 
@@ -896,6 +893,7 @@ Decoration: Straight geometric borders, subtle heraldic knotwork
 
 This creates a Kingdom devoted to fair judgment and faithful service.
 
+
 Delmara
 
 From our established lore, Delmara is defined by:
@@ -914,6 +912,14 @@ Central symbol: Two clasped hands beneath a heart-shaped lily
 Decoration: Flowing ribbons, flowering vines, soft manuscript ornamentation
 
 This creates a Kingdom whose greatest strength is caring for others.
+
+1. Generate an 800 x 1000 image of a crest based on the information above. Do not add any text.  Do not create a border.  Just make the shield with the weathered parchment paper style background..  Make the center shield the focus of the image.
+
+2. Create a matching emblem sized 512×512: The same crest adapted to a rounded-square frame with a border color that compliments the shield's border, preserving the shield and composition  Preserve everything inside the artwork exactly as it is.  Do not alter the composition, colors, lighting, or artwork itself.
+
+3. Create a 128×128 matching icon with the shield alone on a transparent black background, with no parchment or frame.  Do not alter the composition, colors, lighting, or artwork itself.
+
+
 
 Norathen
 
@@ -1009,3 +1015,7 @@ Central symbol: A golden quill writing a shining star, representing ideas becomi
 Decoration: Flowing scrollwork, ornate illuminated flourishes, artistic motifs
 
 This creates a Kingdom that celebrates imagination, invention, and the courage to create something new.
+
+### User Feedback
+
+Possible convert Crowns into a coupon for a discount on some specific product or website.
