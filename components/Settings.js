@@ -17,6 +17,8 @@ export default function Settings({
   playNextTestEffect,
   resetCharacter,
   setAccount,
+  audioError,
+
 } = useGame();
 
   return (
@@ -131,16 +133,29 @@ export default function Settings({
         </div>
 
         <Text
-          style={{
-            color: "#9ca3af",
-            marginTop: 10,
-            fontSize: 14,
-            lineHeight: 20,
-          }}
-        >
-          Background music cycles through the playlist with short silences
-          between tracks.
-        </Text>
+  style={{
+    color: "#9ca3af",
+    marginTop: 10,
+    fontSize: 14,
+    lineHeight: 20,
+  }}
+>
+  Background music cycles through the playlist with short silences
+  between tracks.
+</Text>
+
+{audioError ? (
+  <Text
+    style={{
+      color: "#fca5a5",
+      marginTop: 10,
+      fontSize: 13,
+      lineHeight: 19,
+    }}
+  >
+    Audio Error: {audioError}
+  </Text>
+) : null}
       </View>
 
       {/* Game Guide */}

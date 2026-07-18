@@ -149,15 +149,28 @@ export const GameProvider = ({ children }) => {
 
   // audio-related: delegate to AudioManager (volumes persist in AudioManager)
   const [musicVolume, setMusicVolumeLocal] = useState(AudioManager.getMusicVolume ? AudioManager.getMusicVolume() : 80);
-  const [sfxVolume, setSfxVolumeLocal] = useState(AudioManager.getSfxVolume ? AudioManager.getSfxVolume() : 80);
+  const [sfxVolume, setSfxVolumeLocal] = useState(
+  AudioManager.getSfxVolume
+    ? AudioManager.getSfxVolume()
+    : 80
+);
+
+const [audioError, setAudioError] = useState(
+  AudioManager.getLastAudioError
+    ? AudioManager.getLastAudioError()
+    : ""
+);
 
   // subscribe to AudioManager changes (keeps UI in sync)
   useEffect(() => {
     const unsub = AudioManager.subscribe
-      ? AudioManager.subscribe(({ musicVolume: mv, sfxVolume: sv }) => {
-          setMusicVolumeLocal(mv);
-          setSfxVolumeLocal(sv);
-        })
+      ? AudioManager.subscribe(
+  ({ musicVolume: mv, sfxVolume: sv, lastAudioError }) => {
+    setMusicVolumeLocal(mv);
+    setSfxVolumeLocal(sv);
+    setAudioError(lastAudioError || "");
+  }
+)
       : () => {};
     return () => unsub();
   }, []);
@@ -1053,6 +1066,8 @@ const resetCharacter = () => {
     setMusicVolume,
     sfxVolume,
     setSfxVolume,
+
+    audioError,
 
     // events
     defeatBoss,

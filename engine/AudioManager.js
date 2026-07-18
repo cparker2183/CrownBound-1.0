@@ -43,6 +43,7 @@ const AudioManager = (() => {
   let isPlaying = false;
   let hasUserInteracted = false;
   let isInitialized = false;
+  let lastAudioError = "";
 
   // Every start or stop operation changes this number.
   // Older asynchronous transitions stop when their ID is no longer current.
@@ -106,11 +107,12 @@ const AudioManager = (() => {
     subscribers.forEach((subscriber) => {
       try {
         subscriber({
-          musicVolume,
-          sfxVolume,
-          isPlaying,
-          currentIndex,
-        });
+  musicVolume,
+  sfxVolume,
+  isPlaying,
+  currentIndex,
+  lastAudioError,
+});
       } catch (error) {
         console.warn("[AudioManager] Subscriber error:", error);
       }
@@ -235,14 +237,19 @@ const AudioManager = (() => {
       // inconsistent behavior in some mobile browsers.
       await audio.play();
     } catch (error) {
-      console.warn(
+      lastAudioError = `${error?.name || "AudioError"}: ${
+  error?.message || "Background music could not start."
+}`;
+
+console.warn(
   "[AudioManager] Background music play failed:",
   error?.name,
   error?.message,
   error
 );
 
-      return false;
+notify();
+return false;
     }
 
     await fadeAudio(
@@ -680,6 +687,7 @@ const playNextTestEffect = () => {
     getSfxVolume: () => sfxVolume,
 
     isPlaying: () => isPlaying,
+    getLastAudioError: () => lastAudioError,
 
     subscribe,
 
