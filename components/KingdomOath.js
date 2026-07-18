@@ -542,13 +542,13 @@ export default function KingdomOath({ onContinue = () => {} }) {
   <Image
     source={{ uri: selectedKingdom.artwork.crest }}
     style={{
-      width: 90,
-      aspectRatio: 0.8,
-      flexShrink: 0,
-      borderRadius: 10,
-      marginRight: 14,
-      resizeMode: "contain",
-    }}
+  width: 180,
+  aspectRatio: 0.8,
+  flexShrink: 0,
+  borderRadius: 10,
+  marginRight: 14,
+  resizeMode: "contain",
+}}
   />
 ) : (
   <View
@@ -580,40 +580,44 @@ export default function KingdomOath({ onContinue = () => {} }) {
 )}
 
             <View
-              style={{
-                flex: 1,
-                minWidth: 0,
-              }}
-            >
+  style={{
+    flex: 1,
+    minWidth: 0,
+    alignItems: "center",
+  }}
+>
               <Text
-                style={{
-                  color: "#f5c451",
-                  fontSize: 24,
-                  fontWeight: "bold",
-                  marginBottom: 7,
-                }}
-              >
+  style={{
+    color: "#f5c451",
+    fontSize: 28,
+    fontWeight: "bold",
+    textAlign: "center",
+    marginBottom: 8,
+  }}
+>
                 {selectedKingdom.name}
               </Text>
 
               <Text
-                style={{
-                  color: "#ffffff",
-                  fontSize: 17,
-                  fontWeight: "bold",
-                  marginBottom: 5,
-                }}
-              >
+  style={{
+    color: "#ffffff",
+    fontSize: 18,
+    fontWeight: "bold",
+    textAlign: "center",
+    marginBottom: 6,
+  }}
+>
                 {selectedKingdom.primaryValue}
               </Text>
 
               <Text
-                style={{
-                  color: "#9ca3af",
-                  fontSize: 14,
-                  lineHeight: 20,
-                }}
-              >
+  style={{
+    color: "#9ca3af",
+    fontSize: 15,
+    lineHeight: 21,
+    textAlign: "center",
+  }}
+>
                 {selectedKingdom.supportingValues.join(" • ")}
               </Text>
             </View>
@@ -839,92 +843,95 @@ export default function KingdomOath({ onContinue = () => {} }) {
               }}
             >
               <View
-                style={{
-                  flexDirection: "row",
-                  alignItems: "flex-start",
-                }}
-              >
-                {/* Reserved space for a future crest or portrait image. */}
-                {kingdom.artwork?.crest ? (
-  <Image
-    source={{ uri: kingdom.artwork.crest }}
-    style={{
-      width: useSingleColumn ? 86 : 72,
-      aspectRatio: 0.8,
-      flexShrink: 0,
-      borderRadius: 10,
-      marginRight: 12,
-      resizeMode: "contain",
-    }}
-  />
-) : (
+  style={{
+    alignItems: "center",
+    width: "100%",
+  }}
+>
+  {kingdom.artwork?.crest ? (
+    <Image
+      source={{ uri: kingdom.artwork.crest }}
+      style={{
+        width: useSingleColumn ? 120 : 96,
+        aspectRatio: 0.8,
+        flexShrink: 0,
+        borderRadius: 10,
+        marginBottom: 10,
+        resizeMode: "contain",
+      }}
+    />
+  ) : (
+    <View
+      style={{
+        width: useSingleColumn ? 120 : 96,
+        aspectRatio: 0.8,
+        flexShrink: 0,
+        backgroundColor: "#111827",
+        borderColor: "#4b5563",
+        borderWidth: 1,
+        borderRadius: 10,
+        alignItems: "center",
+        justifyContent: "center",
+        marginBottom: 10,
+      }}
+    >
+      <Text
+        style={{
+          color: "#6b7280",
+          fontSize: 11,
+          lineHeight: 15,
+          textAlign: "center",
+          paddingHorizontal: 4,
+        }}
+      >
+        Kingdom{"\n"}Crest
+      </Text>
+    </View>
+  )}
+
   <View
     style={{
-      width: useSingleColumn ? 86 : 72,
-      aspectRatio: 0.8,
-      flexShrink: 0,
-      backgroundColor: "#111827",
-      borderColor: "#4b5563",
-      borderWidth: 1,
-      borderRadius: 10,
+      width: "100%",
+      minWidth: 0,
       alignItems: "center",
-      justifyContent: "center",
-      marginRight: 12,
     }}
   >
     <Text
       style={{
-        color: "#6b7280",
-        fontSize: 11,
-        lineHeight: 15,
+        color: "#f5c451",
+        fontSize: useSingleColumn ? 22 : 20,
+        fontWeight: "bold",
         textAlign: "center",
-        paddingHorizontal: 4,
+        marginBottom: 6,
       }}
     >
-      Kingdom{"\n"}Crest
+      {kingdom.name}
+    </Text>
+
+    <Text
+      style={{
+        color: "#ffffff",
+        fontSize: 15,
+        fontWeight: "bold",
+        textAlign: "center",
+        marginBottom: 4,
+      }}
+    >
+      {kingdom.primaryValue}
+    </Text>
+
+    <Text
+      style={{
+        color: "#9ca3af",
+        fontSize: 13,
+        lineHeight: 18,
+        textAlign: "center",
+      }}
+    >
+      {kingdom.supportingValues.join(" • ")}
     </Text>
   </View>
-)}
-
-                <View
-                  style={{
-                    flex: 1,
-                    minWidth: 0,
-                  }}
-                >
-                  <Text
-                    style={{
-                      color: "#f5c451",
-                      fontSize: useSingleColumn ? 22 : 19,
-                      fontWeight: "bold",
-                      marginBottom: 6,
-                    }}
-                  >
-                    {kingdom.name}
-                  </Text>
-
-                  <Text
-                    style={{
-                      color: "#ffffff",
-                      fontSize: 15,
-                      fontWeight: "bold",
-                      marginBottom: 4,
-                    }}
-                  >
-                    {kingdom.primaryValue}
-                  </Text>
-
-                  <Text
-                    style={{
-                      color: "#9ca3af",
-                      fontSize: 13,
-                      lineHeight: 18,
-                    }}
-                  >
-                    {kingdom.supportingValues.join(" • ")}
-                  </Text>
-                </View>
-              </View>
+</View>
 
               <View
                 style={{

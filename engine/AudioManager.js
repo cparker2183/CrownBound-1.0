@@ -484,7 +484,7 @@ window.removeEventListener(
 );
 
 window.removeEventListener(
-  "touchstart",
+  "click",
   onFirstInteraction,
   true
 );
@@ -531,7 +531,7 @@ window.addEventListener(
 );
 
 window.addEventListener(
-  "touchstart",
+  "click",
   onFirstInteraction,
   {
     passive: true,
