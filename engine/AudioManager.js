@@ -236,9 +236,11 @@ const AudioManager = (() => {
       await audio.play();
     } catch (error) {
       console.warn(
-        "[AudioManager] Background music play failed:",
-        error
-      );
+  "[AudioManager] Background music play failed:",
+  error?.name,
+  error?.message,
+  error
+);
 
       return false;
     }
@@ -471,11 +473,8 @@ const AudioManager = (() => {
 
     hasUserInteracted = true;
 
-    window.removeEventListener(
-  "pointerdown",
-  onFirstInteraction,
-  true
-);
+    // Background music begins from the later click event.
+    // Mobile browsers may reject playback during pointerdown.
 
 window.removeEventListener(
   "keydown",

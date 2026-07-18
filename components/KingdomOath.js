@@ -853,11 +853,11 @@ export default function KingdomOath({ onContinue = () => {} }) {
       source={{ uri: kingdom.artwork.crest }}
       style={{
         width: useSingleColumn ? 120 : 96,
-        aspectRatio: 0.8,
-        flexShrink: 0,
-        borderRadius: 10,
-        marginBottom: 10,
-        resizeMode: "contain",
+aspectRatio: 0.8,
+flexShrink: 0,
+borderRadius: 10,
+marginBottom: 16,
+resizeMode: "contain",
       }}
     />
   ) : (
