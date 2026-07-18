@@ -913,11 +913,6 @@ Decoration: Flowing ribbons, flowering vines, soft manuscript ornamentation
 
 This creates a Kingdom whose greatest strength is caring for others.
 
-1. Generate an 800 x 1000 image of a crest based on the information above. Do not add any text.  Do not create a border.  Just make the shield with the weathered parchment paper style background..  Make the center shield the focus of the image.
-
-2. Create a matching emblem sized 512×512: The same crest adapted to a rounded-square frame with a border color that compliments the shield's border, preserving the shield and composition  Preserve everything inside the artwork exactly as it is.  Do not alter the composition, colors, lighting, or artwork itself.
-
-3. Create a 128×128 matching icon with the shield alone on a transparent black background, with no parchment or frame.  Do not alter the composition, colors, lighting, or artwork itself.
 
 
 
@@ -959,6 +954,13 @@ Decoration: Scrollwork, compass roses, elegant manuscript flourishes
 
 This creates a Kingdom that celebrates exploration and discovery.
 
+Generate an 800 x 1000 image of a crest based on the information above. Do not add any text.  Do not create a border.  Just make the shield with the weathered parchment paper style background.  Make the center shield the focus of the image.
+
+2. Create a matching emblem sized 512×512: The same crest adapted to a rounded-square frame with a border color that compliments the shield's border, preserving the shield and composition  Preserve everything inside the artwork exactly as it is.  Do not alter the composition, colors, lighting, or artwork itself.
+
+3. Create a 128×128 matching icon with the shield alone on a transparent black background, with no parchment or frame.  Do not alter the composition, colors, lighting, or artwork itself.
+
+
 Lorvayn
 
 From our established lore, Lorvayn is defined by:
@@ -977,6 +979,13 @@ Central symbol: A soaring eagle with outstretched wings above a broken chain
 Decoration: Feather motifs, clean heraldic borders
 
 This creates a Kingdom that protects freedom through courage and responsibility.
+
+Generate an 800 x 1000 image of a crest based on the information above. Do not add any text.  Do not create a border.  Just make the shield with the weathered parchment paper style background..  Make the center shield the focus of the image.
+
+2. Create a matching emblem sized 512×512: The same crest adapted to a rounded-square frame with a border color that compliments the shield's border, preserving the shield and composition  Preserve everything inside the artwork exactly as it is.  Do not alter the composition, colors, lighting, or artwork itself.
+
+3. Create a 128×128 matching icon with the shield alone on a transparent black background, with no parchment or frame.  Do not alter the composition, colors, lighting, or artwork itself.
+
 
 Eryvale
 
@@ -997,6 +1006,13 @@ Decoration: Olive leaves, graceful illuminated borders, subtle gold filigree
 
 This creates a Kingdom where forgiveness is considered true strength.
 
+Generate an 800 x 1000 image of a crest based on the information above. Do not add any text.  Do not create a border.  Just make the shield with the weathered parchment paper style background..  Make the center shield the focus of the image.
+
+2. Create a matching emblem sized 512×512: The same crest adapted to a rounded-square frame with a border color that compliments the shield's border, preserving the shield and composition  Preserve everything inside the artwork exactly as it is.  Do not alter the composition, colors, lighting, or artwork itself.
+
+3. Create a 128×128 matching icon with the shield alone on a transparent black background, with no parchment or frame.  Do not alter the composition, colors, lighting, or artwork itself.
+
+
 Theryn
 
 From our established lore, Theryn is defined by:
@@ -1016,6 +1032,15 @@ Decoration: Flowing scrollwork, ornate illuminated flourishes, artistic motifs
 
 This creates a Kingdom that celebrates imagination, invention, and the courage to create something new.
 
+Generate an 800 x 1000 image of a crest based on the information above. Do not add any text.  Do not create a border.  Just make the shield with the weathered parchment paper style background..  Make the center shield the focus of the image.
+
+2. Create a matching emblem sized 512×512: The same crest adapted to a rounded-square frame with a border color that compliments the shield's border, preserving the shield and composition  Preserve everything inside the artwork exactly as it is.  Do not alter the composition, colors, lighting, or artwork itself.   Keep the whole shield in the frame.
+
+3. Create a 128×128 matching icon with the shield alone on a transparent black background, with no parchment or frame.  Do not alter the composition, colors, lighting, or artwork itself.  Keep the whole shield in the frame.
+
+Create a 128×128 PNG icon by extracting only the existing shield from this image. Remove the rounded-square frame and parchment background completely. Preserve the shield artwork exactly as it is—do not redraw, restyle, recolor, relight, sharpen, or simplify any part of it. Scale the entire shield uniformly so it fits fully within the 128×128 canvas with approximately 4–6 pixels of transparent padding on every side. The background must be true transparency (alpha channel), not a checkerboard, black, parchment, or any other color.
+
+
 ### User Feedback
 
-Possible convert Crowns into a coupon for a discount on some specific product or website.
+Possible convert Crowns into a coupon for a discount on some specific product or website.  Perhaps an affiliate link for me.
